@@ -1,0 +1,9 @@
+.button{
+  width: fit-content;
+  height: fit-content;
+  background: $hTransparent;
+  backdrop-filter: blur(31px);
+  /* Note: backdrop-filter has minimal browser support */
+  border-radius: 30px;
+  color: white;
+}

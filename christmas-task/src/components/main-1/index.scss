@@ -1,0 +1,55 @@
+.main {
+  padding: 50px 100px 0;
+}
+.main_first {
+  background-color: $green;
+  position: absolute;
+  height: calc(100vh - 100px);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.aside {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 465px;
+}
+
+.toys{
+  display: flex;
+  flex-direction: column;
+  width: 66vw;
+
+  .toys__title{
+    font-family: Neucha, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 42px;
+    line-height: 46px;
+    text-transform: uppercase;
+
+    margin-bottom: 32px;
+  }
+
+}
+
+.cards-container {
+  display: flex;
+  align-items: center;
+  flex-flow: row wrap;
+  overflow: scroll;
+  gap: 36px;
+  .card__title {
+    font-family: Neucha;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+  }
+}
+
+

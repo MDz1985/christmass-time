@@ -11,10 +11,15 @@
     ],
     "esModuleInterop": true,
     "noImplicitAny": true
+//    "resolveJsonModule": true
 
+//    "declaration": true,
+//    "emitDeclarationOnly": true,
+//    "allowJs": true,
+//    "declarationMap": true
   },
   "include": [
-    "./src/*"
+    "./src/**/*"
   ],
   "exclude": [
     "node_modules",

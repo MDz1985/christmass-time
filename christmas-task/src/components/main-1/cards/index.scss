@@ -1,0 +1,28 @@
+.card {
+  background: $grey;
+  backdrop-filter: blur(4px);
+  border-radius: 10px;
+  width: 222px;
+  height: 342px;
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .card__image{
+    height: 105px;
+  }
+  .properties__li{
+    font-family: Steppe, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 22px;
+  }
+}
+
+
+
+
+
+

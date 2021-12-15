@@ -3,12 +3,23 @@ const { merge } = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
+
+
 const baseConfig = {
   entry: path.resolve(__dirname, './src/index.ts'),
   mode: 'development',
   devtool: 'source-map',
   module: {
     rules: [
+      {
+        test: /\.html$/,
+        use: [
+          {
+            loader: 'html-loader',
+            options: {minimize: false}
+          }
+        ]
+      },
       {
         test: /\.(png|gif|svg|eot|ttf|json)$/,
         type: 'asset/resource',
