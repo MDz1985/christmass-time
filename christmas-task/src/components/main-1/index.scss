@@ -5,17 +5,177 @@
   background-color: $green;
   position: absolute;
   height: calc(100vh - 100px);
-  width: 100%;
   display: flex;
   justify-content: space-between;
+  gap: 20px;
 }
 
 .aside {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 465px;
+  width: 445px;
+  .search-block{
+    width: 70%;
+    display: flex;
+    flex-flow: row nowrap;
+    //gap: 20px;
+    justify-content: space-between;
+    align-items: flex-start;
+    background: url("../../assets/svg/snowflake.svg") no-repeat 70px 0;
+    background-size: 40px 40px;
+
+  }
+  .search-form__input {
+    width: 178px;
+    height: 28px;
+    left: 100px;
+    top: 928px;
+
+    background: radial-gradient(118.88% 606.86% at 0% 0%, rgba(255, 255, 255, 0.2) 0%, rgba(157, 243, 255, 0.2) 100%);
+    backdrop-filter: blur(31px);
+    /* Note: backdrop-filter has minimal browser support */
+    border-radius: 30px;
+  }
+
+  .aside_button{
+    width: 70px;
+    height: 60px;
+    padding-top: 40px;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    background-position: top center;
+    border: none;
+    color: white;
+    font-family: Steppe;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    text-align: center;
+  }
 }
+
+.sort-block {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  gap: 20px;
+}
+
+.sort__select {
+  width: 178px;
+  height: 30px;
+  background: radial-gradient(118.88% 606.86% at 0% 0%, rgba(255, 255, 255, 0.2) 0%, rgba(157, 243, 255, 0.2) 100%);
+  backdrop-filter: blur(31px);
+  /* Note: backdrop-filter has minimal browser support */
+  border-radius: 30px;
+
+  color: white;
+  font-family: Steppe;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 14px;
+  padding: 0 16px;
+}
+
+.aside_title{
+  font-family: Neucha;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 22px;
+  /* identical to box height */
+  text-transform: uppercase;
+}
+
+.shape{
+  display: flex;
+  justify-content: space-between;
+}
+
+.bell{
+  width: 400px;
+  background: url("../../assets/svg/bell.svg");
+}
+.ball{
+  background: url("../../assets/svg/ball.svg");
+}
+.cone{
+  background: url("../../assets/svg/cone.svg");
+}
+.star{
+  background: url("../../assets/svg/tree.svg");
+}
+.snow{
+  background: url("../../assets/svg/snow.svg");
+}
+.figure{
+  background: url("../../assets/svg/toy.svg");
+}
+
+.volume-button{
+  background: url("../../assets/svg/audio.svg");
+}
+.mute_button {
+  background: url("../../assets/svg/mute.svg");
+}
+
+.categories {
+  height: 70%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  .categories__title {
+    font-family: Steppe;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+  }
+  .categories__label {
+    width: 100%;
+  }
+  .label_input {
+    width: 100%;
+  }
+}
+
+.color__button {
+  width: 24.8px;
+  height: 24px;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.white_button {
+  background-color: white;
+}
+.yellow_button {
+  background-color: yellow;
+}
+.red_button {
+  background-color: red;
+}
+.blue_button {
+  background-color: blue;
+}
+.green_button {
+  background-color: green;
+}
+
+.reset-button {
+  font-family: Steppe;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 14px;
+  text-align: center;
+  padding: 7px 33px;
+  margin-right: 10px;
+}
+
 
 .toys{
   display: flex;

@@ -16,6 +16,12 @@ for (let i = 0; i < 6; i++){
 }
 
 
+const resetFilterButton = button('reset-button', 'Сбросить фильтры', () => console.log('resetFilter'));
+const resetSettingsButton = button('reset-button', 'Сбросить настройки', () => console.log('resetSettings'));
+const resetButtons = main1.querySelector('.aside__buttons');
+resetButtons.append(resetFilterButton);
+resetButtons.append(resetSettingsButton);
+
 
 import data from '../../data';
 import card from './cards/index';
