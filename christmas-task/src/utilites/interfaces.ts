@@ -6,9 +6,9 @@ export interface iiCard{
   shape: string;
   color: string;
   size: string;
-  favorite: boolean;
+  favorite: string;
 }
 
 export interface iCard{
-[index:string]:string|boolean
+[index:string]:string
 }

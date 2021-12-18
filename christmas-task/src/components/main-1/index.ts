@@ -1,7 +1,8 @@
-import './index.scss'
+import './index.scss';
 import htmlFromString from '../../utilites/htmlFromString';
 
 import main1Html from './index.html';
+
 const main1 = htmlFromString(main1Html) as HTMLElement;
 const cardsContainer = main1.querySelector('.cards-container');
 
@@ -10,7 +11,7 @@ import setBg from '../../utilites/image-loader';
 
 let toyButton;
 let toyArray = ['Колокол', 'Шар', 'Шишка', 'Звезда', 'Снежинка', 'Фигурка'];
-for (let i = 0; i < 6; i++){
+for (let i = 0; i < 6; i++) {
   toyButton = button('toy-button', toyArray[i], () => console.log(7));
 
 }
@@ -24,11 +25,22 @@ resetButtons.append(resetSettingsButton);
 
 
 import data from '../../data';
+
 import card from './cards/index';
 
-for (let i = 0; i < data.length; i++){
-  const newCard = card('prop', data[i])
-  cardsContainer.append(newCard);
+import Cards from './class/class';
+
+const SortedCards = new Cards();
+let cardsData = SortedCards.returnResultArray();
+
+
+for (let i = 0; i < cardsData.length; i++) {
+  const newCard = card('prop', cardsData[i]);
+  if (localStorage.getItem('sort') === 'ascending') {
+    cardsContainer.append(newCard);
+  } else {
+    cardsContainer.prepend(newCard);
+  }
 }
 
 
