@@ -1,30 +1,8 @@
-// import cardsData from '../../../data.json';
 import data from '../../../data';
-import { resolve } from 'dns';
 import { iCard } from '../../../utilites/interfaces';
+import {firstLsSet} from '../../../utilites/functions';
 
-// interface iCard {
-//   num: string;
-//   name: string;
-//   count: string;
-//   year: string;
-//   shape: string;
-//   color: string;
-//   size: string;
-//   favorite: string;
-// }
-
-
-localStorage.setItem('sort', 'ascending');
-localStorage.removeItem('name');
-// localStorage.setItem('name', 'Голубой  шар Метель');
-localStorage.setItem('count', '30');
-localStorage.setItem('year', '2021');
-localStorage.setItem('shape', 'шар снежинка фигурка колокольчик шишка');
-localStorage.setItem('color', 'красный синий белый зелёный желтый');
-localStorage.setItem('size', 'большой средний малый');
-localStorage.setItem('favorite', 'да нет');
-
+firstLsSet();
 
 class Cards {
   private readonly data: iCard[];
@@ -52,7 +30,7 @@ class Cards {
             if (Number(this.data[i].count) <= Number(this.getValFromLS('count'))
               && Number(this.data[i].year) <= Number(this.getValFromLS('year'))) {
               if (this.data[i].name === localStorage.getItem('name')
-                || localStorage.getItem('name')  === null){
+                || localStorage.getItem('name') === null) {
 
                 resultArray.push(this.data[i]);
               }
