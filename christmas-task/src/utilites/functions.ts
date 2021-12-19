@@ -4,7 +4,7 @@ function firstLsSet() {
     localStorage.setItem('sort', 'ascending');
   }
   if (!localStorage.getItem('count')) {
-    localStorage.setItem('count', '30');
+    localStorage.setItem('count', '12');
   }
   if (!localStorage.getItem('year')) {
     localStorage.setItem('year', '2021');

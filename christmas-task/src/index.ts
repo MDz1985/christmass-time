@@ -1,12 +1,20 @@
-import './index.scss'
+import './index.scss';
 import mainCover from './components/main-cover/index';
 
 
-
-
-const body:HTMLBodyElement = document.querySelector('.body');
+const body: HTMLBodyElement = document.querySelector('.body');
 
 body.prepend(mainCover);
+
+const audio: HTMLAudioElement = document.querySelector('.audio');
+audio.volume = 0.1;
+audio.play().then();
+audio.addEventListener('timeupdate', () => {
+  if (audio.currentTime === audio.duration){
+    audio.currentTime = 0;
+    audio.play().then();
+  }
+})
 
 
 //

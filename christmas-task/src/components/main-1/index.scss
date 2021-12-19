@@ -1,6 +1,7 @@
 .main {
   padding: 50px 100px 0;
 }
+
 .main_first {
   background-color: $green;
   position: absolute;
@@ -15,7 +16,8 @@
   flex-direction: column;
   justify-content: space-between;
   width: 445px;
-  .search-block{
+
+  .search-block {
     width: 70%;
     display: flex;
     flex-flow: row nowrap;
@@ -26,6 +28,7 @@
     background-size: 40px 40px;
 
   }
+
   .search-form__input {
     width: 178px;
     height: 28px;
@@ -40,7 +43,7 @@
     border-radius: 30px;
   }
 
-  .aside_button{
+  .aside_button {
     width: 70px;
     height: 60px;
     padding-top: 40px;
@@ -55,7 +58,16 @@
     font-size: 12px;
     line-height: 14px;
     text-align: center;
+    &:hover{
+      border-radius: 10%;
+      border: 2px solid white;
+    }
   }
+}
+
+.color__button:hover{
+  border-radius: 10%;
+  border: 2px solid white;
 }
 
 .sort-block {
@@ -82,7 +94,7 @@
   padding: 0 16px;
 }
 
-.aside_title{
+.aside_title {
   font-family: Neucha;
   font-style: normal;
   font-weight: normal;
@@ -92,34 +104,40 @@
   text-transform: uppercase;
 }
 
-.shape{
+.shape {
   display: flex;
   justify-content: space-between;
 }
 
-.bell{
+.bell {
   width: 400px;
   background: url("../../assets/svg/bell.svg");
 }
-.ball{
+
+.ball {
   background: url("../../assets/svg/ball.svg");
 }
-.cone{
+
+.cone {
   background: url("../../assets/svg/cone.svg");
 }
-.star{
+
+.star {
   background: url("../../assets/svg/tree.svg");
 }
-.snow{
+
+.snow {
   background: url("../../assets/svg/snow.svg");
 }
-.figure{
+
+.figure {
   background: url("../../assets/svg/toy.svg");
 }
 
-.volume-button{
+.volume-button {
   background: url("../../assets/svg/audio.svg");
 }
+
 .mute_button {
   background: url("../../assets/svg/mute.svg");
 }
@@ -129,6 +147,7 @@
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
+
   .categories__title {
     font-family: Steppe;
     font-style: normal;
@@ -136,11 +155,17 @@
     font-size: 18px;
     line-height: 22px;
   }
+
   .categories__label {
     width: 100%;
   }
+
   .label_input {
     width: 100%;
+  }
+
+  .label_p {
+    text-align: center;
   }
 }
 
@@ -154,19 +179,22 @@
 .white_button {
   background-color: white;
 }
+
 .yellow_button {
   background-color: yellow;
 }
+
 .red_button {
   background-color: red;
 }
+
 .blue_button {
   background-color: blue;
 }
+
 .green_button {
   background-color: green;
 }
-
 
 
 .reset-button {
@@ -181,12 +209,12 @@
 }
 
 
-.toys{
+.toys {
   display: flex;
   flex-direction: column;
   width: 66vw;
 
-  .toys__title{
+  .toys__title {
     font-family: Neucha, sans-serif;
     font-style: normal;
     font-weight: normal;
@@ -205,6 +233,7 @@
   flex-flow: row wrap;
   overflow: scroll;
   gap: 36px;
+
   .card__title {
     font-family: Neucha;
     font-style: normal;

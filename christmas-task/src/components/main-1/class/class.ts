@@ -5,9 +5,8 @@ import {firstLsSet} from '../../../utilites/functions';
 firstLsSet();
 
 class Cards {
-  private readonly data: iCard[];
+  data: iCard[];
   private readonly textValArray: string[];
-
   constructor() {
     this.data = data;
 

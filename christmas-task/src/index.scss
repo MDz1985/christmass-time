@@ -1,5 +1,6 @@
 @import "styles/styles-reset";
-/* Webfont: Steppe-Regular */@font-face {
+/* Webfont: Steppe-Regular */
+@font-face {
   font-family: 'Steppe';
   src: url('assets/fonts/Steppe.woff2') format('woff2'),
   url('assets/fonts/Steppe.woff') format('woff');
@@ -8,16 +9,24 @@
   text-rendering: optimizeLegibility;
 }
 
-.body{
+.body {
+  font-family: 'Steppe', sans-serif;
   width: 100vw;
   height: 100vh;
   color: white;
   background: url("assets/bg.jpg") no-repeat top center;
   background-size: cover;
   overflow: hidden;
+
+  .selected_items {
+    border-color: #3fcc59;
+    color: #69db7e;
+    box-shadow: 0 0.5em 0.5em -0.4em #3fcc59;
+    transform: translateY(-0.25em);
+  }
 }
 
-.footer{
+.footer {
   position: absolute;
   width: 100vw;
   height: 100px;
@@ -28,15 +37,18 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  .footer_git{
+
+  .footer_git {
     background: url("assets/svg/github.svg") no-repeat;
     aspect-ratio: 50/50;
   }
-  .footer_rss{
+
+  .footer_rss {
     background: url("assets/svg/rss.svg") no-repeat;
     aspect-ratio: 242/90;
   }
-  .footer__a{
+
+  .footer__a {
     display: block;
     height: 50%;
     background-size: contain;
