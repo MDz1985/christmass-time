@@ -21,15 +21,15 @@ class Cards {
 
 
   returnResultArray() {
-    let test = false;
-    let resultArray: iCard[] = [];
+    // let test = false;
+    const resultArray: iCard[] = [];
     for (let i = 0; i < this.data.length; i++) {
       for (let j = 0; j < this.textValArray.length; j++) {
         if (this.getValFromLS(this.textValArray[j]).includes(this.data[i][this.textValArray[j]])) {
           if (j === this.textValArray.length - 1) {
             if (Number(this.data[i].count) <= Number(this.getValFromLS('count'))
               && Number(this.data[i].year) <= Number(this.getValFromLS('year'))) {
-              if (this.data[i].name === localStorage.getItem('name')
+              if (this.data[i].name.toUpperCase().includes(String(localStorage.getItem('name')).toUpperCase())
                 || localStorage.getItem('name') === null) {
 
                 resultArray.push(this.data[i]);

@@ -30,9 +30,10 @@ const card = (className: string, obj: iCard) => {
   ];
 
   function createLi(key: string, number: number, obj: iCard, parent: HTMLElement) {
-    let liValue: string;
+    const liValue = `${obj[key]}`;
+    // let liValue: string;
     // if (key !== 'favorite') {
-      liValue = `${obj[key]}`;
+    //   liValue = `${obj[key]}`;
     // } else {
     //   liValue = obj[key] === true ? 'да' : 'нет';
     // }
