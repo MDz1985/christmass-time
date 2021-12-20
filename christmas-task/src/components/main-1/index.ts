@@ -7,6 +7,22 @@ const main1 = htmlFromString(main1Html) as HTMLElement;
 const cardsContainer = main1.querySelector('.cards-container');
 
 import button from '../button/index';
+
+const aside: HTMLElement = main1.querySelector('.aside');
+const menuButton = main1.querySelector('.menu-button');
+const closeButton = main1.querySelector('.close-button');
+menuButton.addEventListener('click', () => {
+  aside.style.display = 'flex';
+});
+closeButton.addEventListener('click', () => {
+  aside.style.display = 'none';
+});
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 1150) {
+    aside.style.display = 'flex';
+  }
+  console.log(window.innerWidth);
+});
 // import setBg from '../../utilites/image-loader';
 
 // let toyButton;
@@ -86,6 +102,38 @@ sortSelect.addEventListener('change', () => {
   } else {
     addToLS('sort', 'ascending');
   }
+
+  switch (sortSelect.value) {
+    case 'По возрастанию':
+      addToLS('sort', 'ascending');
+      break;
+    case 'По убыванию':
+      rmFromLS('sort', 'ascending');
+      addToLS('sort', 'descending');
+      break;
+    case 'По возрастанию (год)':
+      rmFromLS('sort', 'name');
+      addToLS('sort', 'ascending');
+      addToLS('sort', 'year');
+      break;
+    case 'По убыванию (год)':
+      rmFromLS('sort', 'name');
+      rmFromLS('sort', 'ascending');
+      addToLS('sort', 'year');
+      break;
+    case 'По возрастанию (название)':
+      rmFromLS('sort', 'year');
+      addToLS('sort', 'ascending');
+      addToLS('sort', 'name');
+      break;
+    case 'По убыванию (название)':
+      rmFromLS('sort', 'year');
+      rmFromLS('sort', 'ascending');
+      addToLS('sort', 'name');
+      break;
+  }
+
+
   cardsContainer.innerHTML = '';
   insertCards();
 });
@@ -178,6 +226,28 @@ SortedCards.data = JSON.parse(localStorage.getItem('data'));
 
 function insertCards() {
   const cardsData = SortedCards.returnResultArray();
+  if (localStorage.getItem('sort').split(' ').includes('year')) {
+    cardsData.sort((a, b) => {
+      if (a.year > b.year) {
+        return 1;
+      }
+      if (a.year < b.year) {
+        return -1;
+      }
+      return 0;
+    });
+  }
+  if (localStorage.getItem('sort').split(' ').includes('name')) {
+    cardsData.sort((a, b) => {
+      if (a.name > b.name) {
+        return 1;
+      }
+      if (a.name < b.name) {
+        return -1;
+      }
+      return 0;
+    });
+  }
   for (let i = 0; i < cardsData.length; i++) {
     const newCard = card('prop', cardsData[i], () => {
       const favorite = newCard.querySelector('.properties').lastElementChild as HTMLElement;

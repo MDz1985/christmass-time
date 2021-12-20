@@ -1,14 +1,39 @@
 .main {
   padding: 50px 100px 0;
+  @media (max-width: 1150px) {
+    padding: 20px;
+    height: 100vh;
+  }
 }
 
 .main_first {
   background-color: $green;
   position: absolute;
-  height: calc(100vh - 100px);
   display: flex;
   justify-content: space-between;
   gap: 20px;
+}
+
+.menu-button {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  background: transparent;
+  padding: 0;
+  width: 60px;
+  height: 70px;
+  color: white;
+  transform: rotate(90deg);
+  border: none;
+  font-size: xx-large;
+  display: none;
+  @media (max-width: 1150px) {
+    display: block;
+  }
+  &:hover {
+    border-radius: 10%;
+    border: 2px solid white;
+  }
 }
 
 .aside {
@@ -17,16 +42,40 @@
   justify-content: space-between;
   width: 445px;
 
+  @media (max-width: 1150px) {
+    position: fixed;
+    right: 0;
+    top: 0px;
+    height: 100vh;
+    z-index: 1;
+    background: #192f2d;
+    padding: 44px;
+    display: none;
+  }
+
   .search-block {
-    width: 70%;
     display: flex;
     flex-flow: row nowrap;
-    //gap: 20px;
-    justify-content: space-between;
     align-items: flex-start;
     background: url("../../assets/svg/snowflake.svg") no-repeat 70px 0;
     background-size: 40px 40px;
 
+    .search-form {
+      padding-left: 55px;
+    }
+
+    .close-button {
+      position: absolute;
+      right: 5px;
+      top: 5px;
+      background: transparent;
+      padding: 0;
+      font-size: xx-large;
+      display: none;
+      @media (max-width: 1150px) {
+        display: block;
+      }
+    }
   }
 
   .search-form__input {
@@ -58,14 +107,19 @@
     font-size: 12px;
     line-height: 14px;
     text-align: center;
-    &:hover{
+
+    &:hover {
       border-radius: 10%;
       border: 2px solid white;
     }
   }
+
+  .aside__buttons {
+    width: inherit;
+  }
 }
 
-.color__button:hover{
+.color__button:hover {
   border-radius: 10%;
   border: 2px solid white;
 }
@@ -212,7 +266,6 @@
 .toys {
   display: flex;
   flex-direction: column;
-  width: 66vw;
 
   .toys__title {
     font-family: Neucha, sans-serif;
@@ -225,11 +278,16 @@
     margin-bottom: 32px;
   }
 
+  @media (max-width: 1150px) {
+    width: calc(100vw - 40px);
+  }
+
 }
 
 .cards-container {
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-flow: row wrap;
   overflow: scroll;
   gap: 36px;

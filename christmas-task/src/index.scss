@@ -29,14 +29,18 @@
 .footer {
   position: absolute;
   width: 100vw;
-  height: 100px;
+  height: 10vh;
   left: 0;
-  top: calc(100vh - 100px);
+  top: 90vh;
   background: $green;
   color: white;
   display: flex;
   justify-content: space-around;
   align-items: center;
+
+  @media (max-width: 1150px){
+    display: none;
+  }
 
   .footer_git {
     background: url("assets/svg/github.svg") no-repeat;
