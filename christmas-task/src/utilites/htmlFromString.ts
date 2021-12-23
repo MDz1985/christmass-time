@@ -1,4 +1,4 @@
-export default function (htmlFromString: string) {
+export default function(htmlFromString: string) {
   const template = document.createElement('template');
   template.innerHTML = htmlFromString;
   return template.content.firstChild;

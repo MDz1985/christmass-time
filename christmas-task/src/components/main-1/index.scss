@@ -30,6 +30,7 @@
   @media (max-width: 1150px) {
     display: block;
   }
+
   &:hover {
     border-radius: 10%;
     border: 2px solid white;
@@ -209,18 +210,6 @@
     font-size: 18px;
     line-height: 22px;
   }
-
-  .categories__label {
-    width: 100%;
-  }
-
-  .label_input {
-    width: 100%;
-  }
-
-  .label_p {
-    text-align: center;
-  }
 }
 
 .color__button {
@@ -266,6 +255,7 @@
 .toys {
   display: flex;
   flex-direction: column;
+  width: calc(100vw - 645px);
 
   .toys__title {
     font-family: Neucha, sans-serif;

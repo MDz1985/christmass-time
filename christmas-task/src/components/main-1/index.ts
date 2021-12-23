@@ -21,7 +21,6 @@ window.addEventListener('resize', () => {
   if (window.innerWidth > 1150) {
     aside.style.display = 'flex';
   }
-  console.log(window.innerWidth);
 });
 // import setBg from '../../utilites/image-loader';
 
@@ -158,21 +157,46 @@ favoriteSelectors[1].addEventListener('change', () => {
   insertCards();
 });
 
-const ranges: NodeListOf<HTMLInputElement> = main1.querySelectorAll('.label_input');
-ranges[0].value = localStorage.getItem('count');
-ranges[0].nextElementSibling.innerHTML = ranges[0].value;
-ranges[0].addEventListener('change', () => {
-  localStorage.setItem('count', ranges[0].value);
-  cardsContainer.innerHTML = '';
-  insertCards();
-});
-ranges[1].value = localStorage.getItem('year');
-ranges[1].nextElementSibling.innerHTML = ranges[1].value;
-ranges[1].addEventListener('change', () => {
-  localStorage.setItem('year', ranges[1].value);
-  cardsContainer.innerHTML = '';
-  insertCards();
-});
+
+import slider from './slider';
+
+let control = true;
+
+document.addEventListener('DOMActivate', () => {
+    if (control && document.querySelector('.categories__title')) {
+
+      const categoriesTitles = main1.querySelectorAll('.categories__title') as NodeListOf<HTMLElement>;
+      const countsSlider = slider('counts', 0, 12, () => {
+        cardsContainer.innerHTML = '';
+        insertCards();
+      }) as noUiSlider.Instance;
+      const yearsSlider = slider('years', 1940, 2021, () => {
+        cardsContainer.innerHTML = '';
+        insertCards();
+      });
+      categoriesTitles[1].after(countsSlider);
+      categoriesTitles[2].after(yearsSlider);
+
+
+      control = false;
+    } else if (!control && !document.querySelector('.cards-container')) {
+      control = true;
+    }
+  }
+);
+
+
+function resetSliders() {
+  const slider = document.querySelectorAll('.slider') as NodeListOf<noUiSlider.Instance>;
+
+  slider[0].noUiSlider.updateOptions({
+    start: [0, 12]
+  }, false);
+  slider[1].noUiSlider.updateOptions({
+    start: [1940, 2021]
+  }, false);
+}
+
 
 const shapesArray = ['колокольчик', 'шар', 'шишка', 'снежинка', 'фигурка'];
 const shapes: NodeListOf<HTMLElement> = main1.querySelectorAll('.shape__button');
@@ -209,12 +233,10 @@ resetButtons.append(resetFilterButton);
 resetButtons.append(resetSettingsButton);
 
 
-import data from '../../data';
-
-
 import card from './cards/index';
 
 import Cards from './class/class';
+
 
 const SortedCards = new Cards();
 if (!localStorage.getItem('data')) {
@@ -259,13 +281,7 @@ function insertCards() {
         cardsData[i].favorite = 'да';
       }
       localStorage.setItem('data', JSON.stringify(SortedCards.data));
-      // console.log()
-      // for (let i = 0; i < data.length; i++) {
-      //   console.log(data[i])
-      //   if (data[i].num === cardsData[i].num) {
-      //     data[i].favorite = cardsData[i].favorite;
-      //   }
-      // }
+
       newCard.classList.toggle('favorite_card');
       cardsContainer.innerHTML = '';
       insertCards();
@@ -316,13 +332,11 @@ function resetButtonsStatus() {
   for (let i = 0; i < sizeChecks.length; i++) {
     sizeChecks[i].checked = localStorage.getItem('size').includes(sizesArray[i]);
   }
-  ranges[0].value = localStorage.getItem('count');
-  ranges[0].nextElementSibling.innerHTML = ranges[0].value;
-  ranges[1].value = localStorage.getItem('year');
-  ranges[1].nextElementSibling.innerHTML = ranges[1].value;
+
   addSelections(shapes, shapesArray, 'shape');
   addSelections(colors, colorsArray, 'color');
   addSelections(sizeChecks, sizesArray, 'size');
+  resetSliders();
 
 }
 

@@ -3,11 +3,12 @@ function firstLsSet() {
   if (!localStorage.getItem('sort')) {
     localStorage.setItem('sort', 'ascending');
   }
-  if (!localStorage.getItem('count')) {
-    localStorage.setItem('count', '12');
+
+  if (!localStorage.getItem('counts')) {
+    localStorage.setItem('counts', '0 12');
   }
-  if (!localStorage.getItem('year')) {
-    localStorage.setItem('year', '2021');
+  if (!localStorage.getItem('years')) {
+    localStorage.setItem('years', '1940 2021');
   }
   if (!localStorage.getItem('shape')) {
     localStorage.setItem('shape', 'шар снежинка фигурка колокольчик шишка');
