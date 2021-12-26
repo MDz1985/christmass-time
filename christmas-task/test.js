@@ -32,15 +32,22 @@ function addToLS(key, value) {
 
 
 console.log(b, '!!!');
-import noUiSlider from 'nouislider';
+// // import noUiSlider from 'nouislider';
+//
+// const slider = document.getElementById('slider');
+//
+// noUiSlider.create(slider, {
+//   start: [20, 80],
+//   connect: true,
+//   range: {
+//     'min': 0,
+//     'max': 100
+//   }
+// });
 
-const slider = document.getElementById('slider');
+let v=20
+for (let i = 0; i < 20; i++) {
+  console.log(v,'!!')
+  v++;
 
-noUiSlider.create(slider, {
-  start: [20, 80],
-  connect: true,
-  range: {
-    'min': 0,
-    'max': 100
-  }
-});
+}

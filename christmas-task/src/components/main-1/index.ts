@@ -238,6 +238,7 @@ import card from './cards/index';
 import Cards from './class/class';
 
 
+
 const SortedCards = new Cards();
 if (!localStorage.getItem('data')) {
 
@@ -247,6 +248,9 @@ if (!localStorage.getItem('data')) {
 SortedCards.data = JSON.parse(localStorage.getItem('data'));
 
 function insertCards() {
+  if (!localStorage.getItem('data')) {
+    SortedCards.data = new Cards().data;
+  }
   const cardsData = SortedCards.returnResultArray();
   if (localStorage.getItem('sort').split(' ').includes('year')) {
     cardsData.sort((a, b) => {
@@ -270,19 +274,37 @@ function insertCards() {
       return 0;
     });
   }
+
   for (let i = 0; i < cardsData.length; i++) {
+
     const newCard = card('prop', cardsData[i], () => {
-      const favorite = newCard.querySelector('.properties').lastElementChild as HTMLElement;
-      if (favorite.innerText === 'Любимая: да') {
-        favorite.innerText = 'Любимая: нет';
-        cardsData[i].favorite = 'нет';
+      let chosen = localStorage.getItem('chosen') ? Number(localStorage.getItem('chosen')) : 0;
+      if (cardsData[i].chosen) {
+        delete cardsData[i].chosen;
+        chosen--;
       } else {
-        favorite.innerText = 'Любимая: да';
-        cardsData[i].favorite = 'да';
+        if (chosen >= 20) {
+          alert('>20');
+        } else {
+          chosen++;
+          cardsData[i].chosen = 'yes';
+        }
       }
+      localStorage.setItem('chosen', String(chosen));
+
+
+
+      // const favorite = newCard.querySelector('.properties').lastElementChild as HTMLElement;
+      // if (favorite.innerText === 'Любимая: да') {
+      //   favorite.innerText = 'Любимая: нет';
+      //   cardsData[i].favorite = 'нет';
+      // } else {
+      //   favorite.innerText = 'Любимая: да';
+      //   cardsData[i].favorite = 'да';
+      // }
       localStorage.setItem('data', JSON.stringify(SortedCards.data));
 
-      newCard.classList.toggle('favorite_card');
+      // newCard.classList.toggle('favorite_card');
       cardsContainer.innerHTML = '';
       insertCards();
 
@@ -296,10 +318,12 @@ function insertCards() {
 }
 
 function resetFilters() {
+  const chosen = localStorage.getItem('chosen');
   const sort = localStorage.getItem('sort');
   localStorage.clear();
   firstLsSet();
   localStorage.setItem('sort', sort);
+  localStorage.setItem('chosen', chosen);
   cardsContainer.innerHTML = '';
   insertCards();
   resetButtonsStatus();
@@ -342,4 +366,5 @@ function resetButtonsStatus() {
 
 insertCards();
 
+export {SortedCards};
 export default main1;

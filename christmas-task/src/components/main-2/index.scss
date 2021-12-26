@@ -1,0 +1,61 @@
+.main_second {
+  background-color: rgba(25, 47, 45, 0.7);
+  width: 100%;
+  padding: 0 50px;
+  display: grid;
+  grid-template-columns: 384px auto 440px;
+  grid-column-gap: 50px;
+}
+
+.main-aside {
+  padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .aside_button {
+    width: 70px;
+    height: 60px;
+    padding-top: 40px;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    background-position: top center;
+    border: none;
+
+    &:hover {
+      border-radius: 10%;
+      border: 2px solid white;
+    }
+  }
+}
+
+.trees,
+.background,
+.chosen-toys {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.trees {
+  gap: 10px;
+}
+
+.background {
+  gap: 5px;
+}
+
+.central {
+  background: url("../../assets/bg/1.jpg") no-repeat bottom;
+  background-size: cover;
+  display: flex;
+  flex-flow: column-reverse nowrap;
+  align-items: center;
+
+  .central__fir {
+    aspect-ratio: 500/700;
+    height: 90%;
+    background: url("../../assets/tree/1.png") no-repeat;
+    background-size: contain;
+  }
+}
+

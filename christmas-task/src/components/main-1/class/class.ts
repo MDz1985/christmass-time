@@ -19,6 +19,13 @@ class Cards {
     return localStorage.getItem(value).split(' ');
   }
 
+  filterData() {
+    return this.data.filter((value) => {
+      return !!value.chosen;
+    });
+
+  }
+
 
   returnResultArray() {
     const resultArray: iCard[] = [];

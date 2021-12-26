@@ -54,30 +54,7 @@
     display: none;
   }
 
-  .search-block {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: flex-start;
-    background: url("../../assets/svg/snowflake.svg") no-repeat 70px 0;
-    background-size: 40px 40px;
 
-    .search-form {
-      padding-left: 55px;
-    }
-
-    .close-button {
-      position: absolute;
-      right: 5px;
-      top: 5px;
-      background: transparent;
-      padding: 0;
-      font-size: xx-large;
-      display: none;
-      @media (max-width: 1150px) {
-        display: block;
-      }
-    }
-  }
 
   .search-form__input {
     width: 178px;
@@ -117,6 +94,31 @@
 
   .aside__buttons {
     width: inherit;
+  }
+}
+
+.search-block {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+  background: url("../../assets/svg/snowflake.svg") no-repeat 70px 0;
+  background-size: 40px 40px;
+
+  .search-form {
+    padding-left: 55px;
+  }
+
+  .close-button {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    background: transparent;
+    padding: 0;
+    font-size: xx-large;
+    display: none;
+    @media (max-width: 1150px) {
+      display: block;
+    }
   }
 }
 

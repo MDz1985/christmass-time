@@ -25,7 +25,8 @@ const card = (className: string, obj: iCard, func: () => void) => {
     'Форма игрушки',
     'Цвет игрушки',
     'Размер игрушки',
-    'Любимая'
+    'Любимая',
+    'Избранная'
   ];
 
   function createLi(key: string, number: number, obj: iCard, parent: HTMLElement) {
@@ -35,7 +36,7 @@ const card = (className: string, obj: iCard, func: () => void) => {
     liElement.className = 'properties__li';
     liElement.innerText = `${toysProperties[number]}: ${liValue}`;
     parent.append(liElement);
-    if (liValue === 'да') {
+    if (liValue === 'yes') {
       element.classList.add('favorite_card');
     }
   }

@@ -1,0 +1,34 @@
+.main-btn {
+  background: $grey;
+  backdrop-filter: blur(4px);
+  border-radius: 10px;
+  padding: 0;
+
+  .main-btn__img {
+    height: 120px;
+  }
+}
+
+.tree {
+  height: 134px;
+  width: 134px;
+}
+
+.bg {
+  height: 68px;
+  width: 68px;
+  overflow: hidden;
+
+  .bg__img {
+    height: 100%;
+  }
+}
+
+.toys{
+  height: 80px;
+  width: 80px;
+  .toys__img {
+    height: 90%;
+    margin: 0 auto;
+  }
+}

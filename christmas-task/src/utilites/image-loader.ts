@@ -9,3 +9,5 @@ export default function setBg(element: HTMLElement, number: number) {
 
   });
 }
+
+
