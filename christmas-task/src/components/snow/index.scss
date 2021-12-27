@@ -1,0 +1,36 @@
+.snow-box {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+.snow {
+  width: 100vw;
+  height: 200vh;
+  background: url("../../assets/svg/snow.svg") repeat-x;
+  background-size: 620px 10px;
+  position: absolute;
+  animation: snow 40s linear infinite;
+}
+
+@keyframes snow {
+  from {
+    background-position: 0 -100px;
+  }
+  //20% {
+  //  background-position: 20% -100px;
+  //}
+  //40% {
+  //  background-position: 30% 100px;
+  //}
+  //60% {
+  //  background-position: 40% -100px;
+  //}
+  //80% {
+  //  background-position: 50% 100px;
+  //}
+  to {
+    background-position: 0 2000px;
+  }
+}
+

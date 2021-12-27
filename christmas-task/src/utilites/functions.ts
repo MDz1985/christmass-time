@@ -1,3 +1,5 @@
+import snow from '../components/snow';
+
 function firstLsSet() {
   localStorage.removeItem('name');
   if (!localStorage.getItem('sort')) {
@@ -39,4 +41,35 @@ function addToLS(key: string, value: string) {
   localStorage.setItem(key, result);
 }
 
-export { firstLsSet, rmFromLS, addToLS };
+function getRandom() {
+  return Math.floor((Math.random()) * 900);
+}
+
+function getRandomOf(num: number) {
+  return Math.floor((Math.random()) * num);
+}
+
+function fallSnow(element: HTMLElement) {
+  const snowBox = document.createElement('div');
+  snowBox.className = 'snow-box';
+  element.prepend(snowBox);
+  for (let i = 0; i < 50; i++) {
+    const snowflake = snow();
+    snowflake.style.transform = `translateX(${getRandom() - getRandom()}px)`;
+    setTimeout(() => snowBox.appendChild(snowflake), i * 1000);
+  }
+}
+
+function stopSnow() {
+  const body = document.querySelector('.body');
+  if (document.querySelector('.snow-box')) {
+    console.log(document.querySelector('.snow-box'));
+    body.removeChild(document.querySelector('.snow-box'));
+  }
+}
+
+function setSize(count: number, element: HTMLElement) {
+  element.style.width = `${10 / 49 * 100 * count}%`;
+}
+
+export { firstLsSet, rmFromLS, addToLS, getRandom, fallSnow, stopSnow, setSize, getRandomOf };

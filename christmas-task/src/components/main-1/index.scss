@@ -8,7 +8,6 @@
 
 .main_first {
   background-color: $green;
-  position: absolute;
   display: flex;
   justify-content: space-between;
   gap: 20px;
@@ -55,7 +54,6 @@
   }
 
 
-
   .search-form__input {
     width: 178px;
     height: 28px;
@@ -85,6 +83,7 @@
     font-size: 12px;
     line-height: 14px;
     text-align: center;
+    z-index: 1;
 
     &:hover {
       border-radius: 10%;
@@ -101,7 +100,7 @@
   display: flex;
   flex-flow: row nowrap;
   align-items: flex-start;
-  background: url("../../assets/svg/snowflake.svg") no-repeat 70px 0;
+  //background: url("../../assets/svg/snowflake.svg") no-repeat 70px 0;
   background-size: 40px 40px;
 
   .search-form {
@@ -183,7 +182,7 @@
   background: url("../../assets/svg/tree.svg");
 }
 
-.snow {
+.snow-button {
   background: url("../../assets/svg/snow.svg");
 }
 
@@ -197,6 +196,14 @@
 
 .mute_button {
   background: url("../../assets/svg/mute.svg");
+}
+
+.snow-button {
+  background: url("../../assets/svg/snowflake.svg");
+}
+
+.snow_fallen {
+  background: url("../../assets/svg/snow.svg");
 }
 
 .categories {
@@ -254,12 +261,12 @@
 }
 
 
-.toys {
+.tree-toys {
   display: flex;
   flex-direction: column;
   width: calc(100vw - 645px);
 
-  .toys__title {
+  .tree-toys__title {
     font-family: Neucha, sans-serif;
     font-style: normal;
     font-weight: normal;

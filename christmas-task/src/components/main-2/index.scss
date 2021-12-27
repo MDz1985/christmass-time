@@ -8,7 +8,7 @@
 }
 
 .main-aside {
-  padding-top: 50px;
+  padding-top: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -21,6 +21,7 @@
     background-size: auto 40px;
     background-position: top center;
     border: none;
+    z-index: 1;
 
     &:hover {
       border-radius: 10%;
@@ -56,6 +57,7 @@
     height: 90%;
     background: url("../../assets/tree/1.png") no-repeat;
     background-size: contain;
+    position: relative;
   }
 }
 

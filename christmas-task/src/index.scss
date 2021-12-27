@@ -26,19 +26,40 @@
   }
 }
 
+.header {
+  width: 100vw;
+  height: 7vh;
+  background: $green;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 50px;
+
+  .header__button {
+    height: 40px;
+    min-width: 40px;
+    background: transparent;
+    border: none;
+    color: white;
+    text-transform: uppercase;
+  }
+
+  .tree_button {
+    background: url("./assets/svg/tree.svg") no-repeat center;
+    background-size: contain;
+  }
+}
+
 .footer {
-  position: absolute;
   width: 100vw;
   height: 10vh;
-  left: 0;
-  top: 90vh;
   background: $green;
   color: white;
   display: flex;
   justify-content: space-around;
   align-items: center;
 
-  @media (max-width: 1150px){
+  @media (max-width: 1150px) {
     display: none;
   }
 

@@ -32,18 +32,47 @@ window.addEventListener('resize', () => {
 
 // const audio: HTMLAudioElement = document.querySelector('.audio')
 const volumeButton: HTMLButtonElement = main1.querySelector('.volume-button');
+const audio: HTMLAudioElement = document.querySelector('.audio');
 if (String(localStorage.getItem('volume')).includes('mute')) {
   volumeButton.classList.add('mute_button');
-  // Audio.volume = 0;
+  audio.volume = 0;
 }
 volumeButton.addEventListener('click', () => {
   volumeButton.classList.toggle('mute_button');
   if (String(localStorage.getItem('volume')).includes('mute')) {
     localStorage.removeItem('volume');
+    audio.pause()
   } else {
     localStorage.setItem('volume', 'mute');
+    audio.play()
   }
 });
+
+import { fallSnow, stopSnow } from '../../utilites/functions';
+
+const body = document.querySelector('body');
+
+const snowButton = button('snow-button', '', () => {
+  snowButton.classList.toggle('snow_fallen');
+  if (String(localStorage.getItem('snowfall')).includes('fall')) {
+    localStorage.removeItem('snowfall');
+    stopSnow();
+  } else {
+    localStorage.setItem('snowfall', 'fall');
+    fallSnow(body);
+  }
+});
+snowButton.classList.remove('button');
+snowButton.classList.add('aside_button');
+
+if (String(localStorage.getItem('snow')).includes('fall')) {
+  snowButton.classList.add('snow_fallen');
+  fallSnow(body);
+}
+
+volumeButton.after(snowButton);
+
+
 
 function addListener(element: NodeListOf<HTMLElement>, array: string[], key: string): void {
   for (let i = 0; i < element.length; i++) {
@@ -160,28 +189,25 @@ favoriteSelectors[1].addEventListener('change', () => {
 
 import slider from './slider';
 
-let control = true;
-
-document.addEventListener('DOMActivate', () => {
-    if (control && document.querySelector('.categories__title')) {
-
-      const categoriesTitles = main1.querySelectorAll('.categories__title') as NodeListOf<HTMLElement>;
-      const countsSlider = slider('counts', 0, 12, () => {
-        cardsContainer.innerHTML = '';
-        insertCards();
-      }) as noUiSlider.Instance;
-      const yearsSlider = slider('years', 1940, 2021, () => {
-        cardsContainer.innerHTML = '';
-        insertCards();
-      });
-      categoriesTitles[1].after(countsSlider);
-      categoriesTitles[2].after(yearsSlider);
 
 
-      control = false;
-    } else if (!control && !document.querySelector('.cards-container')) {
-      control = true;
-    }
+main1.addEventListener('DOMNodeInsertedIntoDocument', function insertScroll() {
+
+
+    const categoriesTitles = main1.querySelectorAll('.categories__title') as NodeListOf<HTMLElement>;
+    const countsSlider = slider('counts', 0, 12, () => {
+      cardsContainer.innerHTML = '';
+      insertCards();
+    }) as noUiSlider.Instance;
+    const yearsSlider = slider('years', 1940, 2021, () => {
+      cardsContainer.innerHTML = '';
+      insertCards();
+    });
+    categoriesTitles[1].after(countsSlider);
+    categoriesTitles[2].after(yearsSlider);
+
+    main1.removeEventListener('DOMNodeInsertedIntoDocument', insertScroll);
+
   }
 );
 
@@ -236,7 +262,7 @@ resetButtons.append(resetSettingsButton);
 import card from './cards/index';
 
 import Cards from './class/class';
-
+import { target } from 'nouislider';
 
 
 const SortedCards = new Cards();
@@ -293,7 +319,6 @@ function insertCards() {
       localStorage.setItem('chosen', String(chosen));
 
 
-
       // const favorite = newCard.querySelector('.properties').lastElementChild as HTMLElement;
       // if (favorite.innerText === 'Любимая: да') {
       //   favorite.innerText = 'Любимая: нет';
@@ -333,6 +358,7 @@ function resetSettings() {
   localStorage.clear();
   firstLsSet();
   localStorage.removeItem('volume');
+  SortedCards.data = new Cards().data;
   cardsContainer.innerHTML = '';
   insertCards();
   resetButtonsStatus();
@@ -366,5 +392,5 @@ function resetButtonsStatus() {
 
 insertCards();
 
-export {SortedCards};
+export { SortedCards };
 export default main1;
