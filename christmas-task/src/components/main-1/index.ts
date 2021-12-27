@@ -35,18 +35,20 @@ const volumeButton: HTMLButtonElement = main1.querySelector('.volume-button');
 const audio: HTMLAudioElement = document.querySelector('.audio');
 if (String(localStorage.getItem('volume')).includes('mute')) {
   volumeButton.classList.add('mute_button');
-  audio.volume = 0;
+  // audio.volume = 0;
 }
 volumeButton.addEventListener('click', () => {
   volumeButton.classList.toggle('mute_button');
   if (String(localStorage.getItem('volume')).includes('mute')) {
     localStorage.removeItem('volume');
-    audio.pause()
+    audio.play();
   } else {
     localStorage.setItem('volume', 'mute');
-    audio.play()
+    audio.pause();
   }
 });
+
+
 
 import { fallSnow, stopSnow } from '../../utilites/functions';
 
@@ -65,13 +67,24 @@ const snowButton = button('snow-button', '', () => {
 snowButton.classList.remove('button');
 snowButton.classList.add('aside_button');
 
+main1.addEventListener('DOMNodeInsertedIntoDocument', () => {
+  if (String(localStorage.getItem('volume')).includes('mute')) {
+    volumeButton.classList.add('mute_button');
+  } else volumeButton.classList.remove('mute_button');
+  if (String(localStorage.getItem('snowfall')).includes('fall')) {
+    snowButton.classList.add('snow_fallen');
+  } else {
+    snowButton.classList.remove('snow_fallen');
+  }
+});
+
+
 if (String(localStorage.getItem('snow')).includes('fall')) {
   snowButton.classList.add('snow_fallen');
   fallSnow(body);
 }
 
 volumeButton.after(snowButton);
-
 
 
 function addListener(element: NodeListOf<HTMLElement>, array: string[], key: string): void {
@@ -188,7 +201,6 @@ favoriteSelectors[1].addEventListener('change', () => {
 
 
 import slider from './slider';
-
 
 
 main1.addEventListener('DOMNodeInsertedIntoDocument', function insertScroll() {
@@ -362,6 +374,7 @@ function resetSettings() {
   cardsContainer.innerHTML = '';
   insertCards();
   resetButtonsStatus();
+  audio.play();
 }
 
 

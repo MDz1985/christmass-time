@@ -4,24 +4,29 @@ import './index.scss';
 
 import garlandHtml from './index.html';
 
-const garland = htmlFromString(garlandHtml) as HTMLDivElement;
-
 import { setSize } from '../../../utilites/functions';
-import {getRandom} from '../../../utilites/functions';
 
-for (let i = 1; i < 4; i++) {
-  const garlandLine = document.createElement('ul');
-  garlandLine.className = 'garland-line';
-  setSize(i, garlandLine);
-  for (let j = 0; j < 8 * i; j++) {
-    const garlandBulb = document.createElement('li');
-    garlandBulb.className = 'garland-line__bulb';
-    setTimeout(() => {
-      garlandLine.appendChild(garlandBulb);
+import { getRandomOf } from '../../../utilites/functions';
 
-    }, getRandom());
+function garland(color: string) {
+
+  const element = htmlFromString(garlandHtml) as HTMLDivElement;
+
+  for (let i = 1; i < 4; i++) {
+    const garlandLine = document.createElement('ul');
+    garlandLine.className = 'garland-line';
+    setSize(i, garlandLine);
+    for (let j = 0; j < 8 * i; j++) {
+      const garlandBulb = document.createElement('li');
+      garlandBulb.className = `garland-line__bulb ${color}_bulb`;
+      setTimeout(() => {
+        garlandLine.appendChild(garlandBulb);
+
+      }, getRandomOf(3500));
+    }
+    element.appendChild(garlandLine);
   }
-  garland.appendChild(garlandLine);
+  return element;
 }
 
 

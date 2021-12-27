@@ -20,14 +20,78 @@
   display: block;
   height: 10px;
   width: 10px;
-  background: red;
+  //background: red;
   border-radius: 50%;
-  animation: garland-line__bulb 3s linear infinite;
 }
 
-@keyframes garland-line__bulb {
+.red_bulb {
+  animation: red 3s linear infinite;
+}
+
+.random_bulb{
+  animation: random 3s linear infinite;
+}
+
+.blueviolet_bulb {
+  animation: blueviolet 3s linear infinite;
+}
+
+.yellow_bulb {
+  animation: yellow 3s linear infinite;
+}
+
+.blue_bulb {
+  animation: blue 3s linear infinite;
+}
+
+@keyframes random {
   0%, 100% {
     background: red;
+  }
+  25% {
+    background: blueviolet;
+  }
+  50% {
+    background: yellow;
+  }
+  75% {
+    background: blue;
+  }
+}
+
+@keyframes red {
+  0%, 100% {
+    background: red;
+  }
+  50% {
+    background: white;
+    border: none;
+  }
+}
+
+@keyframes blue {
+  0%, 100% {
+    background: blue;
+  }
+  50% {
+    background: white;
+    border: none;
+  }
+}
+
+@keyframes blueviolet {
+  0%, 100% {
+    background: blueviolet;
+  }
+  50% {
+    background: white;
+    border: none;
+  }
+}
+
+@keyframes yellow {
+  0%, 100% {
+    background: yellow;
   }
   50% {
     background: white;
