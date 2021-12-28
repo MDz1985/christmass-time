@@ -33,11 +33,11 @@
 }
 
 .blueviolet_bulb {
-  animation: blueviolet 3s linear infinite;
+  animation: blueviole-t 3s linear infinite;
 }
 
 .yellow_bulb {
-  animation: yellow 3s linear infinite;
+  animation: yello-w 3s linear infinite;
 }
 
 .blue_bulb {
@@ -79,7 +79,7 @@
   }
 }
 
-@keyframes blueviolet {
+@keyframes blueviole-t {
   0%, 100% {
     background: blueviolet;
   }
@@ -89,7 +89,7 @@
   }
 }
 
-@keyframes yellow {
+@keyframes yello-w {
   0%, 100% {
     background: yellow;
   }
