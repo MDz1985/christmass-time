@@ -205,7 +205,6 @@ import slider from './slider';
 
 main1.addEventListener('DOMNodeInsertedIntoDocument', function insertScroll() {
 
-
     const categoriesTitles = main1.querySelectorAll('.categories__title') as NodeListOf<HTMLElement>;
     const countsSlider = slider('counts', 0, 12, () => {
       cardsContainer.innerHTML = '';
@@ -223,6 +222,11 @@ main1.addEventListener('DOMNodeInsertedIntoDocument', function insertScroll() {
   }
 );
 
+main1.addEventListener('DOMNodeInsertedIntoDocument', function updateLS() {
+  if (!localStorage.getItem('years')){
+    firstLsSet();
+  }
+})
 
 function resetSliders() {
   const slider = document.querySelectorAll('.slider') as NodeListOf<noUiSlider.Instance>;
@@ -274,7 +278,7 @@ resetButtons.append(resetSettingsButton);
 import card from './cards/index';
 
 import Cards from './class/class';
-import { target } from 'nouislider';
+
 
 
 const SortedCards = new Cards();
@@ -405,5 +409,5 @@ function resetButtonsStatus() {
 
 insertCards();
 
-export { SortedCards };
+export { SortedCards, resetSettings };
 export default main1;

@@ -54,6 +54,8 @@
   height: 20px;
   display: flex;
   gap: 10px;
+  position: relative;
+  z-index: 1;
 
   .garland-select__button {
     height: 20px;
@@ -87,5 +89,6 @@
 .toys__img {
   position: relative;
   z-index: 1;
+  max-height: 68px;
 }
 

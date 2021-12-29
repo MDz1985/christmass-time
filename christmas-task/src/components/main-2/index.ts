@@ -72,22 +72,22 @@ for (let i = 1; i < 11; i++) {
   backgroundsDiv.appendChild(main2Btn(i, background, 'bg', 'jpg'));
 }
 
-import main1, { SortedCards } from '../main-1';
+
+import { SortedCards } from '../main-1';
+
+const resetButton2 = button('reset-button', 'Сбросить настройки', () => {
+
+  resetMain2();
+  audio.play();
+  volumeButton.classList.remove('mute_button');
+});
+const asideButtonsDiv = main2.querySelector('.aside__buttons');
+asideButtonsDiv.appendChild(resetButton2);
+
+
 
 let toysForFir = SortedCards.filterData().length > 0 ? SortedCards.filterData() : SortedCards.data;
-main2.addEventListener('DOMNodeInsertedIntoDocument', () => {
-  toysForFir = SortedCards.filterData().length > 0 ? SortedCards.filterData() : SortedCards.data;
-  const toysDiv = main2.querySelector('.chosen-toys');
-  toysDiv.innerHTML = '';
-  for (let i = 0; i < 20; i++) {
-    if (toysForFir[i]) {
-      toysDiv.appendChild(main2Btn(Number(toysForFir[i].num), background, 'toys', 'png'));
-    } else {
-      toysDiv.appendChild(main2Btn(null, background, 'toys', 'png'));
-    }
-
-  }
-});
+main2.addEventListener('DOMNodeInsertedIntoDocument', updateToys);
 
 
 import garland from './garland';
@@ -108,9 +108,35 @@ for (let i = 0; i < 5; i++) {
   }
   garlandSelectDiv.appendChild(garlandButton);
 }
-const cancelButton = button('garland-select__cancel-button', 'off', () =>{
+const cancelButton = button('garland-select__cancel-button', 'off', () => {
   fir.innerHTML = '';
-})
+});
 garlandSelectDiv.appendChild(cancelButton);
+
+
+function resetMain2() {
+  localStorage.clear()
+  fir.style.background = '';
+  fir.innerHTML = '';
+  background.style.background = '';
+  updateToys();
+  snowButton2.classList.remove('snow_fallen');
+  stopSnow();
+}
+
+function updateToys() {
+  toysForFir = SortedCards.filterData().length > 0 ? SortedCards.filterData() : SortedCards.data;
+  const toysDiv = main2.querySelector('.chosen-toys');
+  toysDiv.innerHTML = '';
+  for (let i = 0; i < 20; i++) {
+    if (toysForFir[i]) {
+      toysDiv.appendChild(main2Btn(Number(toysForFir[i].num), background, 'toys', 'png'));
+    } else {
+      toysDiv.appendChild(main2Btn(null, background, 'toys', 'png'));
+    }
+
+  }
+}
+
 
 export default main2;
