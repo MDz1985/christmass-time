@@ -61,6 +61,7 @@ const main2Btn = (number: number, htmlElement: HTMLElement, folder: string, type
       elementImg.src = `https://raw.githubusercontent.com/MDz1985/assets/christmas-task/christmas-task/${folder}/${number}.${type}`;
     });
     if (folder === 'toys') {
+
       let x = 0;
       let y = 0;
 
@@ -95,6 +96,7 @@ const main2Btn = (number: number, htmlElement: HTMLElement, folder: string, type
         } else {
           htmlElement.style.backgroundSize = 'cover';
         }
+        localStorage.setItem(folder, elementImg.src);
       });
     }
   }

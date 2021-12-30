@@ -56,6 +56,18 @@ main2.addEventListener('DOMNodeInsertedIntoDocument', () => {
   } else {
     snowButton2.classList.remove('snow_fallen');
   }
+  if (localStorage.getItem('tree')) {
+    fir.style.background = `url('${localStorage.getItem('tree')}') no-repeat`;
+    fir.style.backgroundSize = 'cover';
+  }
+  if (localStorage.getItem('bg')) {
+    background.style.background = `url('${localStorage.getItem('bg')}') no-repeat`;
+    background.style.backgroundSize = 'cover';
+  }
+  if (localStorage.getItem('garland')) {
+    fir.innerHTML = '';
+    fir.appendChild(garland(localStorage.getItem('garland')));
+  }
 });
 
 const fir = main2.querySelector('.central__fir') as HTMLDivElement;
@@ -85,7 +97,6 @@ const asideButtonsDiv = main2.querySelector('.aside__buttons');
 asideButtonsDiv.appendChild(resetButton2);
 
 
-
 let toysForFir = SortedCards.filterData().length > 0 ? SortedCards.filterData() : SortedCards.data;
 main2.addEventListener('DOMNodeInsertedIntoDocument', updateToys);
 
@@ -99,6 +110,7 @@ for (let i = 0; i < 5; i++) {
   const garlandButton = button('garland-select__button', '', () => {
     fir.innerHTML = '';
     fir.appendChild(garland(colorArray[i]));
+    localStorage.setItem('garland', colorArray[i]);
   });
   garlandButton.classList.remove('button');
   if (i > 0) {
@@ -115,7 +127,7 @@ garlandSelectDiv.appendChild(cancelButton);
 
 
 function resetMain2() {
-  localStorage.clear()
+  localStorage.clear();
   fir.style.background = '';
   fir.innerHTML = '';
   background.style.background = '';
@@ -131,6 +143,8 @@ function updateToys() {
   for (let i = 0; i < 20; i++) {
     if (toysForFir[i]) {
       toysDiv.appendChild(main2Btn(Number(toysForFir[i].num), background, 'toys', 'png'));
+      console.log(toysDiv.lastElementChild);
+      toysDiv.lastElementChild.querySelector('.main-btn__span').innerHTML = toysForFir[i].count;
     } else {
       toysDiv.appendChild(main2Btn(null, background, 'toys', 'png'));
     }
