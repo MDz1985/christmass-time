@@ -46,7 +46,7 @@ import treeHtml from './index.html';
 
 
 
-const main2Btn = (number: number, htmlElement: HTMLElement, folder: string, type: string) => {
+const main2Btn = (htmlElement: HTMLElement, folder: string, type: string, number?: number,) => {
   const element = htmlFromString(treeHtml) as HTMLButtonElement;
   element.classList.add(folder);
   if (!number) {
@@ -71,7 +71,7 @@ const main2Btn = (number: number, htmlElement: HTMLElement, folder: string, type
           x = event.clientX;
           y = event.clientY;
         } else if (event.type === 'dragend') {
-          target.style.opacity = "";
+          target.style.opacity = '';
           console.log(event);
           let thisX = 0;
           let thisY = 0;

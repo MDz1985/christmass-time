@@ -4,9 +4,9 @@ import htmlFromString from '../../utilites/htmlFromString';
 import main2Html from './index.html';
 
 const main2 = htmlFromString(main2Html) as HTMLElement;
-const audio: HTMLAudioElement = document.querySelector('.audio');
+const audio = document.querySelector('.audio') as HTMLAudioElement;
 
-const volumeButton: HTMLButtonElement = main2.querySelector('.volume-button');
+const volumeButton = main2.querySelector('.volume-button') as HTMLButtonElement;
 if (String(localStorage.getItem('volume')).includes('mute')) {
   volumeButton.classList.add('mute_button');
   // Audio.volume = 0;
@@ -25,7 +25,7 @@ volumeButton.addEventListener('click', () => {
 import { fallSnow, stopSnow } from '../../utilites/functions';
 import button from '../button';
 
-const body = document.querySelector('body');
+const body = document.querySelector('body') as HTMLBodyElement;
 
 const snowButton2 = button('snow-button', '', () => {
   snowButton2.classList.toggle('snow_fallen');
@@ -72,16 +72,16 @@ main2.addEventListener('DOMNodeInsertedIntoDocument', () => {
 
 const fir = main2.querySelector('.central__fir') as HTMLDivElement;
 const background = main2.querySelector('.central') as HTMLDivElement;
-import main2Btn from './button';
+import createBtn from './button';
 
-const treesDiv = main2.querySelector('.trees');
+const treesDiv = main2.querySelector('.trees') as HTMLDivElement;
 for (let i = 1; i < 5; i++) {
-  treesDiv.appendChild(main2Btn(i, fir, 'tree', 'png'));
+  treesDiv.appendChild(createBtn(fir, 'tree', 'png', i));
 }
 
-const backgroundsDiv = main2.querySelector('.background');
+const backgroundsDiv = main2.querySelector('.background') as HTMLDivElement;
 for (let i = 1; i < 11; i++) {
-  backgroundsDiv.appendChild(main2Btn(i, background, 'bg', 'jpg'));
+  backgroundsDiv.appendChild(createBtn(background, 'bg', 'jpg', i));
 }
 
 
@@ -93,7 +93,7 @@ const resetButton2 = button('reset-button', 'Сбросить настройки
   audio.play();
   volumeButton.classList.remove('mute_button');
 });
-const asideButtonsDiv = main2.querySelector('.aside__buttons');
+const asideButtonsDiv = main2.querySelector('.aside__buttons') as HTMLDivElement;
 asideButtonsDiv.appendChild(resetButton2);
 
 
@@ -138,15 +138,16 @@ function resetMain2() {
 
 function updateToys() {
   toysForFir = SortedCards.filterData().length > 0 ? SortedCards.filterData() : SortedCards.data;
-  const toysDiv = main2.querySelector('.chosen-toys');
+  const toysDiv = main2.querySelector('.chosen-toys') as HTMLDivElement;
   toysDiv.innerHTML = '';
   for (let i = 0; i < 20; i++) {
     if (toysForFir[i]) {
-      toysDiv.appendChild(main2Btn(Number(toysForFir[i].num), background, 'toys', 'png'));
-      console.log(toysDiv.lastElementChild);
-      toysDiv.lastElementChild.querySelector('.main-btn__span').innerHTML = toysForFir[i].count;
+      const toyButton = createBtn(background, 'toys', 'png', Number(toysForFir[i].num)) as HTMLButtonElement;
+      const toyButtonText = toyButton.querySelector('.main-btn__span') as HTMLSpanElement;
+      toyButtonText.innerText = toysForFir[i].count;
+      toysDiv.appendChild(toyButton);
     } else {
-      toysDiv.appendChild(main2Btn(null, background, 'toys', 'png'));
+      toysDiv.appendChild(createBtn(background, 'toys', 'png'));
     }
 
   }

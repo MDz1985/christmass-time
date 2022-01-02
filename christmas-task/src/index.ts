@@ -2,20 +2,23 @@ import './index.scss';
 import mainCover from './components/main-cover/index';
 import main1 from './components/main-1';
 import main2 from './components/main-2';
-import button from './components/button';
+import createButton from './components/button';
 
-const header: HTMLBodyElement = document.querySelector('.header');
+const header = document.querySelector('.header') as HTMLElement;
+console.log(header)
 const headerButtonText: string[] = ['', 'игрушки', 'ёлка'];
 
 const mainsArray = [mainCover, main1, main2];
 for (let i = 0; i < headerButtonText.length; i++) {
-  header.append(button('header__button', headerButtonText[i], () => {
-    console.log(headerButtonText[i]);
-    header.nextElementSibling.replaceWith(mainsArray[i]);
-  }));
+  const button = createButton('header__button', headerButtonText[i], () => {
+    const main = document.querySelector('.main') as HTMLDivElement;
+    main.replaceWith(mainsArray[i]);
+  });
+  if (i === 0){
+    button.classList.add('tree_button');
+  }
+  header.append(button);
 }
-header.firstElementChild.classList.add('tree_button');
-
 
 header.after(mainCover);
 

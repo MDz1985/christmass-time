@@ -2,11 +2,13 @@ import noUiSlider from 'nouislider';
 import './index.scss';
 import sliderHtml from './index.html';
 import htmlFromString from '../../../utilites/htmlFromString';
+import { Interface } from 'readline';
 
 
-export default function(key: string, min: number, max: number, func: () => void) {
+export default function(className: string, key: string, min: number, max: number, func: () => void) {
   const sliderBox = htmlFromString(sliderHtml) as HTMLElement;
   const slider = sliderBox.querySelector('.slider') as noUiSlider.Instance;
+  slider.classList.add(className);
   const sliderMinValueSpan = sliderBox.querySelector('.slider-min-value') as HTMLSpanElement;
   const sliderMaxValueSpan = sliderBox.querySelector('.slider-max-value') as HTMLSpanElement;
 

@@ -199,17 +199,17 @@ favoriteSelectors[1].addEventListener('change', () => {
 });
 
 
-import slider from './slider';
+import createSlider from './slider';
 
 
 main1.addEventListener('DOMNodeInsertedIntoDocument', function insertScroll() {
 
     const categoriesTitles = main1.querySelectorAll('.categories__title') as NodeListOf<HTMLElement>;
-    const countsSlider = slider('counts', 0, 12, () => {
+    const countsSlider = createSlider('counts-slider', 'counts', 0, 12, () => {
       cardsContainer.innerHTML = '';
       insertCards();
     }) as noUiSlider.Instance;
-    const yearsSlider = slider('years', 1940, 2021, () => {
+    const yearsSlider = createSlider('years-slider', 'years', 1940, 2021, () => {
       cardsContainer.innerHTML = '';
       insertCards();
     });
@@ -227,13 +227,16 @@ main1.addEventListener('DOMNodeInsertedIntoDocument', function updateLS() {
   }
 });
 
-function resetSliders() {
-  const slider = document.querySelectorAll('.slider') as NodeListOf<noUiSlider.Instance>;
 
-  slider[0].noUiSlider.updateOptions({
+
+function resetSliders() {
+  const countsSlider = document.querySelector('.counts-slider') as noUiSlider.Instance;
+  const yearsSlider = document.querySelector('.years-slider') as noUiSlider.Instance;
+
+  countsSlider.noUiSlider.updateOptions({
     start: [0, 12]
   }, false);
-  slider[1].noUiSlider.updateOptions({
+  yearsSlider.noUiSlider.updateOptions({
     start: [1940, 2021]
   }, false);
 }
@@ -277,6 +280,8 @@ resetButtons.append(resetSettingsButton);
 import card from './cards/index';
 
 import Cards from './class/class';
+
+
 
 
 const SortedCards = new Cards();

@@ -1,27 +1,26 @@
-import './index.scss'
+import './index.scss';
 import htmlFromString from '../../utilites/htmlFromString';
 
 import mainCoverHtml from './index.html';
+
 const mainCover = htmlFromString(mainCoverHtml) as HTMLElement;
 
-function addBall (name: HTMLDivElement, nameClass: string){
-  name = document.createElement('div');
-  name.className = `${nameClass} ball`;
-  mainCover.prepend(name);
+function addBall(nameClass: string) {
+  const div = document.createElement('div');
+  div.className = `${nameClass} ball`;
+  mainCover.prepend(div);
 }
-let ball1, ball2;
-addBall( ball2, 'ball_first');
-addBall( ball1, 'ball_second');
 
+addBall('ball_first');
+addBall('ball_second');
 
-
-
-import button from '../button/index';
+import createButton from '../button/index';
 import main1 from '../main-1/index';
-// const centralDiv = mainCover.querySelector('.central');
-mainCover.lastElementChild.append(button('center__button', 'начать', () => {
-  mainCover.replaceWith(main1)
-}))
 
+const centralDiv = mainCover.querySelector('.center') as HTMLDivElement;
+const beginButton = createButton('center__button', 'начать', () => {
+  mainCover.replaceWith(main1);
+});
+centralDiv.append(beginButton);
 
 export default mainCover;
