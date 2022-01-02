@@ -28,7 +28,7 @@
   animation: red 3s linear infinite;
 }
 
-.random_bulb{
+.random_bulb {
   animation: random 3s linear infinite;
 }
 
@@ -46,55 +46,55 @@
 
 @keyframes random {
   0%, 100% {
-    background: red;
+    background: #ff0000;
   }
   25% {
-    background: blueviolet;
+    background: #8a2be2;
   }
   50% {
-    background: yellow;
+    background: #ffff00;
   }
   75% {
-    background: blue;
+    background: #0000ff;
   }
 }
 
 @keyframes red {
   0%, 100% {
-    background: red;
+    background: #ff0000;
   }
   50% {
-    background: white;
+    background: #ffffff;
     border: none;
   }
 }
 
 @keyframes blue {
   0%, 100% {
-    background: blue;
+    background: #0000ff;
   }
   50% {
-    background: white;
+    background: #ffffff;
     border: none;
   }
 }
 
 @keyframes blueviole-t {
   0%, 100% {
-    background: blueviolet;
+    background: #8a2be2;
   }
   50% {
-    background: white;
+    background: #ffffff;
     border: none;
   }
 }
 
 @keyframes yello-w {
   0%, 100% {
-    background: yellow;
+    background: #ffff00;
   }
   50% {
-    background: white;
+    background: #ffffff;
     border: none;
   }
 }

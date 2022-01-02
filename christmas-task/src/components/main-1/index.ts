@@ -4,13 +4,13 @@ import htmlFromString from '../../utilites/htmlFromString';
 import main1Html from './index.html';
 
 const main1 = htmlFromString(main1Html) as HTMLElement;
-const cardsContainer = main1.querySelector('.cards-container');
+const cardsContainer = main1.querySelector('.cards-container') as HTMLDivElement;
 
 import button from '../button/index';
 
-const aside: HTMLElement = main1.querySelector('.aside');
-const menuButton = main1.querySelector('.menu-button');
-const closeButton = main1.querySelector('.close-button');
+const aside: HTMLElement | null = main1.querySelector('.aside') as HTMLElement;
+const menuButton = main1.querySelector('.menu-button') as HTMLButtonElement;
+const closeButton = main1.querySelector('.close-button') as HTMLButtonElement;
 menuButton.addEventListener('click', () => {
   aside.style.display = 'flex';
 });
@@ -31,8 +31,8 @@ window.addEventListener('resize', () => {
 // }
 
 // const audio: HTMLAudioElement = document.querySelector('.audio')
-const volumeButton: HTMLButtonElement = main1.querySelector('.volume-button');
-const audio: HTMLAudioElement = document.querySelector('.audio');
+const volumeButton = main1.querySelector('.volume-button') as HTMLButtonElement;
+const audio = document.querySelector('.audio') as HTMLAudioElement;
 if (String(localStorage.getItem('volume')).includes('mute')) {
   volumeButton.classList.add('mute_button');
   // audio.volume = 0;
@@ -49,10 +49,9 @@ volumeButton.addEventListener('click', () => {
 });
 
 
-
 import { fallSnow, stopSnow } from '../../utilites/functions';
 
-const body = document.querySelector('body');
+const body = document.querySelector('body') as HTMLBodyElement;
 
 const snowButton = button('snow-button', '', () => {
   snowButton.classList.toggle('snow_fallen');
@@ -118,7 +117,7 @@ function addSelections(element: NodeListOf<HTMLElement>, array: string[], key: s
   }
 }
 
-const searchArea: HTMLInputElement = main1.querySelector('.search-form__input');
+const searchArea = main1.querySelector('.search-form__input') as HTMLInputElement;
 searchArea.addEventListener('change', () => {
   localStorage.setItem('name', searchArea.value);
   cardsContainer.innerHTML = '';
@@ -130,7 +129,7 @@ searchArea.addEventListener('mouseleave', () => {
   insertCards();
 });
 
-const sortSelect: HTMLSelectElement = main1.querySelector('.sort__select');
+const sortSelect = main1.querySelector('.sort__select') as HTMLSelectElement;
 if (localStorage.getItem('sort').split(' ').includes('ascending')) {
   sortSelect.value = 'По возрастанию';
 } else {
@@ -223,10 +222,10 @@ main1.addEventListener('DOMNodeInsertedIntoDocument', function insertScroll() {
 );
 
 main1.addEventListener('DOMNodeInsertedIntoDocument', function updateLS() {
-  if (!localStorage.getItem('years')){
+  if (!localStorage.getItem('years')) {
     firstLsSet();
   }
-})
+});
 
 function resetSliders() {
   const slider = document.querySelectorAll('.slider') as NodeListOf<noUiSlider.Instance>;
@@ -270,7 +269,7 @@ const resetSettingsButton = button('reset-button', 'Сбросить настр�
     volumeButton.classList.remove('mute_button');
   }
 });
-const resetButtons = main1.querySelector('.aside__buttons');
+const resetButtons = main1.querySelector('.aside__buttons') as HTMLDivElement;
 resetButtons.append(resetFilterButton);
 resetButtons.append(resetSettingsButton);
 
@@ -278,7 +277,6 @@ resetButtons.append(resetSettingsButton);
 import card from './cards/index';
 
 import Cards from './class/class';
-
 
 
 const SortedCards = new Cards();

@@ -13,7 +13,7 @@
   font-family: 'Steppe', sans-serif;
   width: 100vw;
   height: 100vh;
-  color: white;
+  color: #ffffff;
   background: url("assets/bg.jpg") no-repeat top center;
   background-size: cover;
   overflow: hidden;
@@ -40,7 +40,7 @@
     min-width: 40px;
     background: transparent;
     border: none;
-    color: white;
+    color: #ffffff;
     text-transform: uppercase;
   }
 
@@ -54,7 +54,7 @@
   width: 100vw;
   height: 10vh;
   background: $green;
-  color: white;
+  color: #ffffff;
   display: flex;
   justify-content: space-around;
   align-items: center;

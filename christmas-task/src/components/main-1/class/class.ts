@@ -1,11 +1,11 @@
 import data from '../../../data';
-import { iCard } from '../../../utilites/interfaces';
+import { ICard } from '../../../utilites/interfaces';
 import { firstLsSet } from '../../../utilites/functions';
 
 firstLsSet();
 
 class Cards {
-  data: iCard[];
+  data: ICard[];
   private readonly textValArray: string[];
 
   constructor() {
@@ -28,7 +28,7 @@ class Cards {
 
 
   returnResultArray() {
-    const resultArray: iCard[] = [];
+    const resultArray: ICard[] = [];
     for (let i = 0; i < this.data.length; i++) {
       for (let j = 0; j < this.textValArray.length; j++) {
         if (this.getValFromLS(this.textValArray[j]).includes(this.data[i][this.textValArray[j]])) {

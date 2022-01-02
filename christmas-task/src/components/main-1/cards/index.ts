@@ -3,11 +3,11 @@ import htmlFromString from '../../../utilites/htmlFromString';
 
 import cardHtml from './index.html';
 
-import { iCard } from '../../../utilites/interfaces';
+import { ICard } from '../../../utilites/interfaces';
 import setBg from '../../../utilites/image-loader';
 
 
-const card = (className: string, obj: iCard, func: () => void) => {
+const card = (className: string, obj: ICard, func: () => void) => {
   const element = htmlFromString(cardHtml) as HTMLLIElement;
   const cardTitle = element.firstElementChild as HTMLParagraphElement;
   const cardImage = cardTitle.nextElementSibling as HTMLDivElement;
@@ -29,7 +29,7 @@ const card = (className: string, obj: iCard, func: () => void) => {
     'Избранная'
   ];
 
-  function createLi(key: string, number: number, obj: iCard, parent: HTMLElement) {
+  function createLi(key: string, number: number, obj: ICard, parent: HTMLElement) {
     const liValue = `${obj[key]}`;
 
     const liElement = document.createElement('li');

@@ -9,6 +9,6 @@ export interface iiCard{
   favorite: string;
 }
 
-export interface iCard{
+export interface ICard{
 [index:string]:string
 }

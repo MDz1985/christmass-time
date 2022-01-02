@@ -4,10 +4,12 @@ import sliderHtml from './index.html';
 import htmlFromString from '../../../utilites/htmlFromString';
 
 
-
 export default function(key: string, min: number, max: number, func: () => void) {
   const sliderBox = htmlFromString(sliderHtml) as HTMLElement;
   const slider = sliderBox.querySelector('.slider') as noUiSlider.Instance;
+  const sliderMinValueSpan = sliderBox.querySelector('.slider-min-value') as HTMLSpanElement;
+  const sliderMaxValueSpan = sliderBox.querySelector('.slider-max-value') as HTMLSpanElement;
+
 
   setTimeout(() => {
     const minValue = localStorage.getItem(key) === null ? min : localStorage.getItem(key).split(' ')[0];
@@ -22,8 +24,8 @@ export default function(key: string, min: number, max: number, func: () => void)
       step: 1
     });
     slider.noUiSlider.on('update', function(values: string[]) {
-      slider.nextElementSibling.firstElementChild.innerHTML = values[0].slice(0, -3);
-      slider.nextElementSibling.lastElementChild.innerHTML = values[1].slice(0, -3);
+      sliderMinValueSpan.innerText = values[0].slice(0, -3);
+      sliderMaxValueSpan.innerText = values[1].slice(0, -3);
     });
     slider.noUiSlider.on('end', function(values: string[]) {
       localStorage.setItem(key, `${values[0].slice(0, -3)} ${values[1].slice(0, -3)}`);
