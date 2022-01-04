@@ -5,6 +5,7 @@ import cardHtml from './index.html';
 
 import { ICard } from '../../../utilites/interfaces';
 import setBg from '../../../utilites/image-loader';
+import {localStorageObject} from '../../../utilites/consts';
 
 
 const card = (className: string, obj: ICard, func: () => void) => {
@@ -19,22 +20,23 @@ const card = (className: string, obj: ICard, func: () => void) => {
   cardTitle.innerText = `${obj['name']}`;
 
 
-  const toysProperties: string[] = [
-    'Количество',
-    'Год покупки',
-    'Форма игрушки',
-    'Цвет игрушки',
-    'Размер игрушки',
-    'Любимая',
-    'Избранная'
-  ];
+
+  // const toysProperties: string[] = [
+  //   'Количество',
+  //   'Год покупки',
+  //   'Форма игрушки',
+  //   'Цвет игрушки',
+  //   'Размер игрушки',
+  //   'Любимая',
+  //   'Избранная'
+  // ];
 
   function createLi(key: string, number: number, obj: ICard, parent: HTMLElement) {
     const liValue = `${obj[key]}`;
 
     const liElement = document.createElement('li');
     liElement.className = 'properties__li';
-    liElement.innerText = `${toysProperties[number]}: ${liValue}`;
+    liElement.innerText = `${localStorageObject.toysProperties[number]}: ${liValue}`;
     parent.append(liElement);
     if (liValue === 'yes') {
       element.classList.add('favorite_card');

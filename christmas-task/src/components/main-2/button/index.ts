@@ -1,6 +1,7 @@
 import htmlFromString from '../../../utilites/htmlFromString';
 import './index.scss';
-
+import {objFromLS} from '../../../utilites/consts';
+const globalObj = objFromLS;
 
 import treeHtml from './index.html';
 
@@ -44,6 +45,31 @@ import treeHtml from './index.html';
 //
 // }, false);
 
+let x = 0;
+let y = 0;
+
+function drag(event: DragEvent) {
+  const target = event.target as HTMLImageElement;
+  if (event.type === 'dragstart') {
+    x = event.clientX;
+    y = event.clientY;
+  } else if (event.type === 'dragend') {
+    target.style.opacity = '';
+    console.log(event);
+    let thisX = 0;
+    let thisY = 0;
+    if (target.style.transform) {
+      const targetTransformMatch = target.style.transform.match(/(-?[0-9]*)/g) as RegExpMatchArray;
+      thisX = Number(targetTransformMatch.filter(value => value !== '')[0]);
+      thisY = Number(targetTransformMatch.filter(value => value !== '')[1]);
+    }
+    target.style.transform = `translate(${thisX - (x - event.clientX) - 34}px, ${thisY - (y - event.clientY) + 34}px)`;
+
+  }
+
+}
+
+
 
 
 const main2Btn = (htmlElement: HTMLElement, folder: string, type: string, number?: number,) => {
@@ -62,28 +88,7 @@ const main2Btn = (htmlElement: HTMLElement, folder: string, type: string, number
     });
     if (folder === 'toys') {
 
-      let x = 0;
-      let y = 0;
 
-      function drag(event: DragEvent) {
-        const target = event.target as HTMLImageElement;
-        if (event.type === 'dragstart') {
-          x = event.clientX;
-          y = event.clientY;
-        } else if (event.type === 'dragend') {
-          target.style.opacity = '';
-          console.log(event);
-          let thisX = 0;
-          let thisY = 0;
-          if (target.style.transform) {
-            thisX = Number(target.style.transform.match(/(-?[0-9]*)/g).filter(value => value !== '')[0]);
-            thisY = Number(target.style.transform.match(/(-?[0-9]*)/g).filter(value => value !== '')[1]);
-          }
-          target.style.transform = `translate(${thisX - (x - event.clientX) - 34}px, ${thisY - (y - event.clientY) + 34}px)`;
-
-        }
-
-      }
 
       elementImg.addEventListener('dragstart', drag);
       elementImg.addEventListener('dragend', drag);
@@ -96,11 +101,14 @@ const main2Btn = (htmlElement: HTMLElement, folder: string, type: string, number
         } else {
           htmlElement.style.backgroundSize = 'cover';
         }
-        localStorage.setItem(folder, elementImg.src);
+        globalObj[folder] = elementImg.src;
+        localStorage.setItem('object', JSON.stringify(globalObj));
       });
     }
   }
+
   return element;
 };
+
 
 export default main2Btn;

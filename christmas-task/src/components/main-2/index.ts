@@ -3,70 +3,83 @@ import htmlFromString from '../../utilites/htmlFromString';
 
 import main2Html from './index.html';
 
+import { objFromLS } from '../../utilites/consts';
+const globalObj = objFromLS;
+
 const main2 = htmlFromString(main2Html) as HTMLElement;
 const audio = document.querySelector('.audio') as HTMLAudioElement;
 
 const volumeButton = main2.querySelector('.volume-button') as HTMLButtonElement;
-if (String(localStorage.getItem('volume')).includes('mute')) {
+if (globalObj.volume === 'mute') {
   volumeButton.classList.add('mute_button');
   // Audio.volume = 0;
 }
 volumeButton.addEventListener('click', () => {
   volumeButton.classList.toggle('mute_button');
-  if (String(localStorage.getItem('volume')).includes('mute')) {
-    localStorage.removeItem('volume');
+  if (globalObj.volume === 'mute') {
+    globalObj.volume = '';
     audio.play();
   } else {
-    localStorage.setItem('volume', 'mute');
+    globalObj.volume = 'mute';
     audio.pause();
   }
+  localStorage.setItem('object', JSON.stringify(globalObj));
 });
 
 import { fallSnow, stopSnow } from '../../utilites/functions';
-import button from '../button';
+import createButton from '../button';
+
 
 const body = document.querySelector('body') as HTMLBodyElement;
 
-const snowButton2 = button('snow-button', '', () => {
-  snowButton2.classList.toggle('snow_fallen');
-  if (String(localStorage.getItem('snowfall')).includes('fall')) {
-    localStorage.removeItem('snowfall');
+const snowButton = createButton('snow-button', '', () => {
+  snowButton.classList.toggle('snow_fallen');
+  if (globalObj.snowfall === 'fall') {
+    globalObj.snowfall = '';
     stopSnow();
   } else {
-    localStorage.setItem('snowfall', 'fall');
+    globalObj.snowfall = 'fall';
     fallSnow(body);
   }
+  localStorage.setItem('object', JSON.stringify(globalObj));
 });
-snowButton2.classList.remove('button');
-snowButton2.classList.add('aside_button');
+snowButton.classList.remove('button');
+snowButton.classList.add('aside_button');
 
-if (String(localStorage.getItem('snowfall')).includes('fall')) {
-  snowButton2.classList.add('snow_fallen');
-  fallSnow(body);
-}
+volumeButton.after(snowButton);
 
-volumeButton.after(snowButton2);
 
 main2.addEventListener('DOMNodeInsertedIntoDocument', () => {
-  if (String(localStorage.getItem('volume')).includes('mute')) {
+
+  if (globalObj.volume === 'mute') {
     volumeButton.classList.add('mute_button');
   } else volumeButton.classList.remove('mute_button');
-  if (String(localStorage.getItem('snowfall')).includes('fall')) {
-    snowButton2.classList.add('snow_fallen');
+  if (globalObj.snowfall.includes('fall')) {
+    snowButton.classList.add('snow_fallen');
   } else {
-    snowButton2.classList.remove('snow_fallen');
+    snowButton.classList.remove('snow_fallen');
   }
-  if (localStorage.getItem('tree')) {
-    fir.style.background = `url('${localStorage.getItem('tree')}') no-repeat`;
+  // if (String(localStorage.getItem('volume')).includes('mute')) {
+  //   volumeButton.classList.add('mute_button');
+  // } else volumeButton.classList.remove('mute_button');
+  // if (String(localStorage.getItem('snowfall')).includes('fall')) {
+  //   snowButton.classList.add('snow_fallen');
+  // } else {
+  //   snowButton.classList.remove('snow_fallen');
+  // }
+  if (globalObj.tree !== '') {
+    // if (localStorage.getItem('tree')) {
+    fir.style.background = `url('${globalObj.tree}') no-repeat`;
     fir.style.backgroundSize = 'cover';
   }
-  if (localStorage.getItem('bg')) {
-    background.style.background = `url('${localStorage.getItem('bg')}') no-repeat`;
+  if (globalObj.bg !== '') {
+    // if (localStorage.getItem('bg')) {
+    background.style.background = `url('${globalObj.bg}') no-repeat`;
     background.style.backgroundSize = 'cover';
   }
-  if (localStorage.getItem('garland')) {
+  if (globalObj.garland !== '') {
     fir.innerHTML = '';
-    fir.appendChild(garland(localStorage.getItem('garland')));
+    fir.appendChild(createGarland(globalObj.garland));
   }
 });
 
@@ -87,7 +100,7 @@ for (let i = 1; i < 11; i++) {
 
 import { SortedCards } from '../main-1';
 
-const resetButton2 = button('reset-button', 'Сбросить настройки', () => {
+const resetButton2 = createButton('reset-button', 'Сбросить настройки', () => {
 
   resetMain2();
   audio.play();
@@ -101,16 +114,18 @@ let toysForFir = SortedCards.filterData().length > 0 ? SortedCards.filterData() 
 main2.addEventListener('DOMNodeInsertedIntoDocument', updateToys);
 
 
-import garland from './garland';
+import createGarland from './garland';
 
 
 const garlandSelectDiv = main2.querySelector('.garland-select') as HTMLDivElement;
 const colorArray = ['random', 'red', 'blueviolet', 'yellow', 'blue'];
 for (let i = 0; i < 5; i++) {
-  const garlandButton = button('garland-select__button', '', () => {
+  const garlandButton = createButton('garland-select__button', '', () => {
     fir.innerHTML = '';
-    fir.appendChild(garland(colorArray[i]));
-    localStorage.setItem('garland', colorArray[i]);
+    fir.appendChild(createGarland(colorArray[i]));
+    globalObj.garland = colorArray[i];
+    localStorage.setItem('object', JSON.stringify(globalObj));
+    // localStorage.setItem('garland', colorArray[i]);
   });
   garlandButton.classList.remove('button');
   if (i > 0) {
@@ -120,7 +135,7 @@ for (let i = 0; i < 5; i++) {
   }
   garlandSelectDiv.appendChild(garlandButton);
 }
-const cancelButton = button('garland-select__cancel-button', 'off', () => {
+const cancelButton = createButton('garland-select__cancel-button', 'off', () => {
   fir.innerHTML = '';
 });
 garlandSelectDiv.appendChild(cancelButton);
@@ -132,7 +147,7 @@ function resetMain2() {
   fir.innerHTML = '';
   background.style.background = '';
   updateToys();
-  snowButton2.classList.remove('snow_fallen');
+  snowButton.classList.remove('snow_fallen');
   stopSnow();
 }
 

@@ -8,7 +8,7 @@ import { setSize } from '../../../utilites/functions';
 
 import { getRandomOf } from '../../../utilites/functions';
 
-function garland(color: string) {
+function createGarland(color: string) {
 
   const element = htmlFromString(garlandHtml) as HTMLDivElement;
 
@@ -30,4 +30,4 @@ function garland(color: string) {
 }
 
 
-export default garland;
+export default createGarland;

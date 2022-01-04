@@ -160,6 +160,11 @@
   text-transform: uppercase;
 }
 
+.radio {
+  position: relative;
+  z-index: 1;
+}
+
 .shape {
   display: flex;
   justify-content: space-between;

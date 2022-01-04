@@ -3,9 +3,12 @@ import './index.scss';
 import sliderHtml from './index.html';
 import htmlFromString from '../../../utilites/htmlFromString';
 import { Interface } from 'readline';
+import { objFromLS } from '../../../utilites/consts';
+
+const globalObj = objFromLS;
 
 
-export default function(className: string, key: string, min: number, max: number, func: () => void) {
+export default function(className: string, key: string, min: number, max: number, doOnClick: () => void) {
   const sliderBox = htmlFromString(sliderHtml) as HTMLElement;
   const slider = sliderBox.querySelector('.slider') as noUiSlider.Instance;
   slider.classList.add(className);
@@ -14,8 +17,8 @@ export default function(className: string, key: string, min: number, max: number
 
 
   setTimeout(() => {
-    const minValue = localStorage.getItem(key) === null ? min : localStorage.getItem(key).split(' ')[0];
-    const maxValue = localStorage.getItem(key) === null ? max : localStorage.getItem(key).split(' ')[1];
+    const minValue = globalObj[key] === '' ? min : globalObj[key][0];
+    const maxValue = globalObj[key] === '' ? max : globalObj[key][1];
     noUiSlider.create(<HTMLElement>slider, {
       start: [minValue, maxValue],
       connect: true,
@@ -30,8 +33,9 @@ export default function(className: string, key: string, min: number, max: number
       sliderMaxValueSpan.innerText = values[1].slice(0, -3);
     });
     slider.noUiSlider.on('end', function(values: string[]) {
-      localStorage.setItem(key, `${values[0].slice(0, -3)} ${values[1].slice(0, -3)}`);
-      func();
+      globalObj[key] = [values[0].slice(0, -3), values[1].slice(0, -3)];
+      localStorage.setItem('object', JSON.stringify(globalObj));
+      doOnClick();
     });
   });
   return sliderBox;
