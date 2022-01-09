@@ -1,6 +1,6 @@
-import {localStorageObject} from './consts';
+import { localStorageObject } from './consts';
 
-export default function setBg(element: HTMLElement, number: number) {
+export default function setBg(element: HTMLElement, number: number): void {
   const img = new Image();
   img.src = `${localStorageObject.toysUrl}${number}.png`;
 

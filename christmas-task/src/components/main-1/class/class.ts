@@ -16,47 +16,15 @@ class Cards {
     this.data = data;
   }
 
-  // getValFromLS(value: string): string[] {
-  //   return objFromLS[value];
-  //   // return localStorage.getItem(value).split(' ');
-  // }
 
-  filterData() {
+  filterData(): ICard[] {
     return this.data.filter((value) => {
       return !!value.chosen;
     });
 
   }
 
-
-  returnResultArray() {
-    // const resultArray: ICard[] = [];
-
-    // for (let i = 0; i < this.data.length; i++) {
-    //
-    //
-    //
-    //   for (let j = 0; j < this.textValArray.length; j++) {
-    //
-    //
-    //     if (this.getValFromLS(this.textValArray[j]).includes(this.data[i][this.textValArray[j]])) {
-    //       if (j === this.textValArray.length - 1) {
-    //         if (Number(this.data[i].count) >= Number(this.getValFromLS('counts')[0])
-    //           && Number(this.data[i].count) <= Number(this.getValFromLS('counts')[1])
-    //           && Number(this.data[i].year) >= Number(this.getValFromLS('years')[0])
-    //           && Number(this.data[i].year) <= Number(this.getValFromLS('years')[1])) {
-    //           if (this.data[i].name.toUpperCase().includes(String(localStorage.getItem('name')).toUpperCase())
-    //             || localStorage.getItem('name') === null) {
-    //
-    //             resultArray.push(this.data[i]);
-    //           }
-    //         }
-    //       }
-    //     } else {
-    //       j = this.textValArray.length - 1;
-    //     }
-    //   }
-    // }
+  returnResultArray(): ICard[] {
 
     return this.data.filter(element => {
         return Number(element.count) >= Number(objFromLS.counts[0]) &&

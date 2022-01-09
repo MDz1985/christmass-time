@@ -4,6 +4,7 @@ import htmlFromString from '../../utilites/htmlFromString';
 import main2Html from './index.html';
 
 import { objFromLS } from '../../utilites/consts';
+
 const globalObj = objFromLS;
 
 const main2 = htmlFromString(main2Html) as HTMLElement;
@@ -11,11 +12,10 @@ const audio = document.querySelector('.audio') as HTMLAudioElement;
 
 const volumeButton = main2.querySelector('.volume-button') as HTMLButtonElement;
 if (globalObj.volume === 'mute') {
-  volumeButton.classList.add('mute_button');
-  // Audio.volume = 0;
+  volumeButton.classList.add('button_mute');
 }
 volumeButton.addEventListener('click', () => {
-  volumeButton.classList.toggle('mute_button');
+  volumeButton.classList.toggle('button_mute');
   if (globalObj.volume === 'mute') {
     globalObj.volume = '';
     audio.play();
@@ -52,28 +52,18 @@ volumeButton.after(snowButton);
 main2.addEventListener('DOMNodeInsertedIntoDocument', () => {
 
   if (globalObj.volume === 'mute') {
-    volumeButton.classList.add('mute_button');
-  } else volumeButton.classList.remove('mute_button');
+    volumeButton.classList.add('button_mute');
+  } else volumeButton.classList.remove('button_mute');
   if (globalObj.snowfall.includes('fall')) {
     snowButton.classList.add('snow_fallen');
   } else {
     snowButton.classList.remove('snow_fallen');
   }
-  // if (String(localStorage.getItem('volume')).includes('mute')) {
-  //   volumeButton.classList.add('mute_button');
-  // } else volumeButton.classList.remove('mute_button');
-  // if (String(localStorage.getItem('snowfall')).includes('fall')) {
-  //   snowButton.classList.add('snow_fallen');
-  // } else {
-  //   snowButton.classList.remove('snow_fallen');
-  // }
   if (globalObj.tree !== '') {
-    // if (localStorage.getItem('tree')) {
     fir.style.background = `url('${globalObj.tree}') no-repeat`;
     fir.style.backgroundSize = 'cover';
   }
   if (globalObj.bg !== '') {
-    // if (localStorage.getItem('bg')) {
     background.style.background = `url('${globalObj.bg}') no-repeat`;
     background.style.backgroundSize = 'cover';
   }
@@ -104,7 +94,7 @@ const resetButton2 = createButton('reset-button', 'Сбросить настро
 
   resetMain2();
   audio.play();
-  volumeButton.classList.remove('mute_button');
+  volumeButton.classList.remove('button_mute');
 });
 const asideButtonsDiv = main2.querySelector('.aside__buttons') as HTMLDivElement;
 asideButtonsDiv.appendChild(resetButton2);
@@ -125,7 +115,6 @@ for (let i = 0; i < 5; i++) {
     fir.appendChild(createGarland(colorArray[i]));
     globalObj.garland = colorArray[i];
     localStorage.setItem('object', JSON.stringify(globalObj));
-    // localStorage.setItem('garland', colorArray[i]);
   });
   garlandButton.classList.remove('button');
   if (i > 0) {
@@ -141,7 +130,7 @@ const cancelButton = createButton('garland-select__cancel-button', 'off', () => 
 garlandSelectDiv.appendChild(cancelButton);
 
 
-function resetMain2() {
+function resetMain2(): void {
   localStorage.clear();
   fir.style.background = '';
   fir.innerHTML = '';
@@ -151,7 +140,7 @@ function resetMain2() {
   stopSnow();
 }
 
-function updateToys() {
+function updateToys(): void {
   toysForFir = SortedCards.filterData().length > 0 ? SortedCards.filterData() : SortedCards.data;
   const toysDiv = main2.querySelector('.chosen-toys') as HTMLDivElement;
   toysDiv.innerHTML = '';

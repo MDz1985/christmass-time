@@ -1,4 +1,4 @@
-export interface iiCard{
+export interface IiCard {
   num: string;
   name: string;
   count: string;
@@ -9,8 +9,8 @@ export interface iiCard{
   favorite: string;
 }
 
-export interface ICard{
-[index:string]:string
+export interface ICard {
+  [index: string]: string
 }
 
 export interface ILocalStorage {
@@ -37,4 +37,16 @@ export interface ILocalStorage {
   sizesArray: string[],
   colorsArray: string[],
   shapesArray: string[],
+  sortSelectValuesArray: string[],
+  yearsSlider: {min: number, max: number, className: string, key:string},
+  countsSlider: {min: number, max: number, className: string, key:string}
+}
+
+export interface IStringArraysFromLS {
+  sizesArray: string[],
+  colorsArray: string[],
+  shapesArray: string[],
+  shape: string[],
+  color: string[],
+  size: string[]
 }

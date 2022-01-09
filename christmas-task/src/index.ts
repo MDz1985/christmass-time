@@ -1,13 +1,13 @@
 import './index.scss';
 import mainCover from './components/main-cover/index';
-import main1 from './components/main-1';
+import toysMainHtmlElement from './components/main-1';
 import main2 from './components/main-2';
 import createButton from './components/button';
 
 const header = document.querySelector('.header') as HTMLElement;
 const headerButtonText: string[] = ['', 'игрушки', 'ёлка'];
 
-const mainsArray = [mainCover, main1, main2];
+const mainsArray = [mainCover, toysMainHtmlElement, main2];
 for (let i = 0; i < headerButtonText.length; i++) {
   const button = createButton('header__button', headerButtonText[i], () => {
     const main = document.querySelector('.main') as HTMLDivElement;
@@ -21,18 +21,7 @@ for (let i = 0; i < headerButtonText.length; i++) {
 
 header.after(mainCover);
 
-
-// const audio = new Audio('./assets/audio/audio.mp3');
-// header.appendChild(audio);
-
-
-// import { localStorageObject } from './utilites/consts';
-//
-// if (!localStorage.getItem('object')){
-//   localStorage.setItem('object', JSON.stringify(localStorageObject));
-// }
-// const objFromLS = JSON.parse(<string>localStorage.getItem('object'));
-import {objFromLS} from './utilites/consts';
+import { objFromLS } from './utilites/consts';
 
 
 const audio: HTMLAudioElement | null = document.querySelector('.audio') as HTMLAudioElement;

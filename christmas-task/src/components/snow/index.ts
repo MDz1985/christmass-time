@@ -4,8 +4,8 @@ import './index.scss';
 
 import snowHtml from './index.html';
 
-// const snow = htmlFromString(snowHtml) as HTMLButtonElement;
-const snow = () => {
+
+const snow: () => HTMLButtonElement = () => {
 
   return htmlFromString(snowHtml) as HTMLButtonElement;
 };

@@ -10,15 +10,8 @@
       "ES6"
     ],
     "esModuleInterop": true,
-    "noImplicitAny": true
-    ,
+    "noImplicitAny": true,
     "strict": true
-    //    "resolveJsonModule": true
-
-    //    "declaration": true,
-    //    "emitDeclarationOnly": true,
-    //    "allowJs": true,
-    //    "declarationMap": true
   },
   "include": [
     "./src/**/*"

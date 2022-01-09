@@ -1,8 +1,6 @@
 import { ILocalStorage } from './interfaces';
 import data from '../data';
-// import Cards from '../components/main-1/class/class';
-//
-// const a = new Cards();
+
 
 const localStorageObject: ILocalStorage = {
   data: data,
@@ -27,7 +25,10 @@ const localStorageObject: ILocalStorage = {
   chosen: 0,
   sizesArray: ['большой', 'средний', 'малый'],
   colorsArray: ['белый', 'желтый', 'красный', 'синий', 'зелёный'],
-  shapesArray: ['колокольчик', 'шар', 'шишка', 'снежинка', 'фигурка']
+  shapesArray: ['колокольчик', 'шар', 'шишка', 'снежинка', 'фигурка'],
+  sortSelectValuesArray: ['По возрастанию', 'По убыванию', 'По возрастанию (год)', 'По убыванию (год)', 'По возрастанию (название)', 'По убыванию (название)'],
+  yearsSlider: {min: 1940, max: 2021, className: 'years-slider', key:'years'},
+  countsSlider: {min: 1, max: 12, className: 'counts-slider', key:'counts'}
 };
 
 

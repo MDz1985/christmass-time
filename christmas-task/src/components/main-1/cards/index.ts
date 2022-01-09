@@ -5,7 +5,29 @@ import cardHtml from './index.html';
 
 import { ICard } from '../../../utilites/interfaces';
 import setBg from '../../../utilites/image-loader';
-import {localStorageObject} from '../../../utilites/consts';
+import { objFromLS, localStorageObject } from '../../../utilites/consts';
+
+
+export const arrayOfCards: HTMLElement[] = objFromLS.data.map((value: ICard, index: any) => {
+  const card = htmlFromString(cardHtml) as HTMLLIElement;
+  const cardTitle = card.querySelector('.card__title') as HTMLParagraphElement;
+  const cardImage = card.querySelector('.card__image') as HTMLDivElement;
+  const cardProperties = card.querySelector('.properties') as HTMLUListElement;
+
+  cardTitle.innerText = `${value.name}`;
+  setBg(cardImage, Number(value.num));
+  const arrayOfPropertiesNames = Object.keys(value).slice(2);
+  const propertiesArray = arrayOfPropertiesNames.map((val: keyof ICard, ind) => {
+    const liElement: HTMLLIElement = document.createElement('li', index);
+    liElement.className = 'properties__li';
+    liElement.innerText = `${objFromLS.toysProperties[ind]}: ${value[val]}`;
+    return liElement;
+  });
+  propertiesArray.forEach((element) => {
+    cardProperties.append(element);
+  });
+  return card;
+});
 
 
 const card = (className: string, obj: ICard, func: () => void) => {
@@ -20,18 +42,7 @@ const card = (className: string, obj: ICard, func: () => void) => {
   cardTitle.innerText = `${obj['name']}`;
 
 
-
-  // const toysProperties: string[] = [
-  //   'Количество',
-  //   'Год покупки',
-  //   'Форма игрушки',
-  //   'Цвет игрушки',
-  //   'Размер игрушки',
-  //   'Любимая',
-  //   'Избранная'
-  // ];
-
-  function createLi(key: string, number: number, obj: ICard, parent: HTMLElement) {
+  function createLi(key: string, number: number, obj: ICard, parent: HTMLElement): void {
     const liValue = `${obj[key]}`;
 
     const liElement = document.createElement('li');

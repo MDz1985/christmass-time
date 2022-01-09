@@ -1,51 +1,49 @@
 import './index.scss';
 import htmlFromString from '../../utilites/htmlFromString';
 
-import main1Html from './index.html';
+import toysMainHtml from './index.html';
+import { objFromLS } from '../../utilites/consts';
+import createButton from '../button/index';
+import { fallSnow, stopSnow } from '../../utilites/functions';
+import createCard from './cards/index';
 
-const main1 = htmlFromString(main1Html) as HTMLElement;
-const cardsContainer = main1.querySelector('.cards-container') as HTMLDivElement;
+import Cards from './class/class';
+import { ICard, ILocalStorage, IStringArraysFromLS } from '../../utilites/interfaces';
 
-import button from '../button/index';
+import createSlider from './slider';
 
-const aside: HTMLElement | null = main1.querySelector('.aside') as HTMLElement;
-const menuButton = main1.querySelector('.menu-button') as HTMLButtonElement;
-const closeButton = main1.querySelector('.close-button') as HTMLButtonElement;
+import { arrayOfCards } from './cards';
+
+
+const toysMainHtmlElement = htmlFromString(toysMainHtml) as HTMLElement;
+const cardsContainer = toysMainHtmlElement.querySelector('.cards-container') as HTMLDivElement;
+// arrayOfCards.forEach((value) => cardsContainer.append(value));
+
+const leftMenuHtmlElement: HTMLElement | null = toysMainHtmlElement.querySelector('.aside') as HTMLElement;
+const menuButton = toysMainHtmlElement.querySelector('.menu-button') as HTMLButtonElement;
+const closeButton = toysMainHtmlElement.querySelector('.close-button') as HTMLButtonElement;
 menuButton.addEventListener('click', () => {
-  aside.style.display = 'flex';
+  leftMenuHtmlElement.style.display = 'flex';
 });
 closeButton.addEventListener('click', () => {
-  aside.style.display = 'none';
+  leftMenuHtmlElement.style.display = 'none';
 });
 window.addEventListener('resize', () => {
   if (window.innerWidth > 1150) {
-    aside.style.display = 'flex';
+    leftMenuHtmlElement.style.display = 'flex';
   }
 });
 
 
-import { objFromLS } from '../../utilites/consts';
+const globalObject: ILocalStorage = objFromLS;
 
-const globalObject = objFromLS;
-
-
-// import setBg from '../../utilites/image-loader';
-
-// let toyButton;
-// const toyArray = ['Колокол', 'Шар', 'Шишка', 'Звезда', 'Снежинка', 'Фигурка'];
-// for (let i = 0; i < 6; i++) {
-//   toyButton = button('toy-button', toyArray[i], () => console.log(7));
-// }
-
-// const audio: HTMLAudioElement = document.querySelector('.audio')
-const volumeButton = main1.querySelector('.volume-button') as HTMLButtonElement;
+const volumeButton = toysMainHtmlElement.querySelector('.volume-button') as HTMLButtonElement;
 const audio = document.querySelector('.audio') as HTMLAudioElement;
 if (globalObject.volume.includes('mute')) {
-  volumeButton.classList.add('mute_button');
-  // audio.volume = 0;
+  volumeButton.classList.add('button_mute');
 }
 volumeButton.addEventListener('click', () => {
-  volumeButton.classList.toggle('mute_button');
+  volumeButton.classList.toggle('button_mute');
   if (globalObject.volume.includes('mute')) {
     globalObject.volume = '';
     audio.play();
@@ -57,20 +55,15 @@ volumeButton.addEventListener('click', () => {
 });
 
 
-
-import { fallSnow, stopSnow } from '../../utilites/functions';
-
 const body = document.querySelector('body') as HTMLBodyElement;
 
-const snowButton = button('snow-button', '', () => {
+const snowButton = createButton('snow-button', '', () => {
   snowButton.classList.toggle('snow_fallen');
   if (globalObject.snowfall.includes('fall')) {
     globalObject.snowfall = '';
-    // localStorage.removeItem('snowfall');
     stopSnow();
   } else {
     globalObject.snowfall = 'fall';
-    // localStorage.setItem('snowfall', 'fall');
     fallSnow(body);
   }
   localStorage.setItem('object', JSON.stringify(globalObject));
@@ -78,19 +71,16 @@ const snowButton = button('snow-button', '', () => {
 snowButton.classList.remove('button');
 snowButton.classList.add('aside_button');
 
-main1.addEventListener('DOMNodeInsertedIntoDocument', updVolSnowBtnStatus);
-
 function updVolSnowBtnStatus() {
   if (globalObject.volume === 'mute') {
-    volumeButton.classList.add('mute_button');
-  } else volumeButton.classList.remove('mute_button');
+    volumeButton.classList.add('button_mute');
+  } else volumeButton.classList.remove('button_mute');
   if (globalObject.snowfall.includes('fall')) {
     snowButton.classList.add('snow_fallen');
   } else {
     snowButton.classList.remove('snow_fallen');
   }
 }
-
 
 
 if (globalObject.snowfall.includes('fall')) {
@@ -101,7 +91,9 @@ if (globalObject.snowfall.includes('fall')) {
 volumeButton.after(snowButton);
 
 
-function addListener(element: NodeListOf<HTMLElement>, array: string[], key: string): void {
+function addListener(element: NodeListOf<HTMLElement>,
+                     array: string[], key: keyof IStringArraysFromLS): void {
+
   for (let i = 0; i < element.length; i++) {
     if (globalObject[key].includes(array[i])) {
       element[i].classList.add('selected_items');
@@ -110,27 +102,22 @@ function addListener(element: NodeListOf<HTMLElement>, array: string[], key: str
     }
     element[i].addEventListener('click', () => {
       if (globalObject[key].includes(array[i])) {
-        globalObject[key] = globalObject[key].filter((r: string) => r !== array[i]);
-        // if (SortedCards.getValFromLS(key).includes(array[i])) {
-        //   rmFromLS(key, array[i]);
+        globalObject[key] = globalObject[key].filter((r: string) => r !== array[i]) as string[];
       } else {
         globalObject[key].push(array[i]);
-        // addToLS(key, array[i]);
       }
       localStorage.setItem('object', JSON.stringify(globalObject));
       element[i].classList.toggle('selected_items');
       cardsContainer.innerHTML = '';
       insertCards();
-      // addToLS(key, 'control');
 
     });
   }
 }
 
-function addSelections(element: NodeListOf<HTMLElement>, array: string[], key: string): void {
+function addSelections(element: NodeListOf<HTMLElement>, array: string[], key: keyof IStringArraysFromLS): void {
   for (let i = 0; i < array.length; i++) {
     if (globalObject[key].includes(array[i])) {
-      // if (localStorage.getItem(key).split(' ').includes(array[i])) {
       element[i].classList.add('selected_items');
     } else {
       element[i].classList.remove('selected_items');
@@ -138,101 +125,44 @@ function addSelections(element: NodeListOf<HTMLElement>, array: string[], key: s
   }
 }
 
-const searchArea = main1.querySelector('.search-form__input') as HTMLInputElement;
+const searchArea = toysMainHtmlElement.querySelector('.search-form__input') as HTMLInputElement;
 searchArea.addEventListener('change', () => {
-  // localStorage.setItem('name', searchArea.value);
   globalObject.name = searchArea.value;
   localStorage.setItem('object', JSON.stringify(globalObject));
   cardsContainer.innerHTML = '';
   insertCards();
 });
 searchArea.addEventListener('mouseleave', () => {
-  // localStorage.setItem('name', searchArea.value);
   globalObject.name = searchArea.value;
   localStorage.setItem('object', JSON.stringify(globalObject));
   cardsContainer.innerHTML = '';
   insertCards();
 });
 
-const sortSelect = main1.querySelector('.sort__select') as HTMLSelectElement;
-if (objFromLS.sort.includes('ascending')) {
-  sortSelect.value = 'По возрастанию';
-} else {
-  sortSelect.value = 'По убыванию';
-}
+const sortSelect = toysMainHtmlElement.querySelector('.sort__select') as HTMLSelectElement;
+
 sortSelect.addEventListener('change', () => {
   switch (sortSelect.value) {
-    case 'По возрастанию':
+    case globalObject.sortSelectValuesArray[0]:
       globalObject.sort = ['ascending'];
-      // addToLS('sort', 'ascending');
       break;
-    case 'По убыванию':
+    case globalObject.sortSelectValuesArray[1]:
       globalObject.sort = ['descending'];
-      // rmFromLS('sort', 'ascending');
-      // addToLS('sort', 'descending');
       break;
-    case 'По возрастанию (год)':
+    case globalObject.sortSelectValuesArray[2]:
       globalObject.sort = ['ascending', 'year'];
-      // rmFromLS('sort', 'name');
-      // addToLS('sort', 'ascending');
-      // addToLS('sort', 'year');
       break;
-    case 'По убыванию (год)':
+    case globalObject.sortSelectValuesArray[3]:
       globalObject.sort = ['descending', 'year'];
-      // rmFromLS('sort', 'name');
-      // rmFromLS('sort', 'ascending');
-      // addToLS('sort', 'year');
       break;
-    case 'По возрастанию (название)':
+    case globalObject.sortSelectValuesArray[4]:
       globalObject.sort = ['ascending', 'name'];
-      // rmFromLS('sort', 'year');
-      // addToLS('sort', 'ascending');
-      // addToLS('sort', 'name');
       break;
-    case 'По убыванию (название)':
+    case globalObject.sortSelectValuesArray[5]:
       globalObject.sort = ['descending', 'name'];
-      // rmFromLS('sort', 'year');
-      // rmFromLS('sort', 'ascending');
-      // addToLS('sort', 'name');
       break;
   }
   localStorage.setItem('object', JSON.stringify(globalObject));
-  // if (sortSelect.value !== 'По возрастанию') {
-  //   rmFromLS('sort', 'ascending');
-  //   addToLS('sort', 'descending');
-  // } else {
-  //   addToLS('sort', 'ascending');
-  // }
-  //
-  // switch (sortSelect.value) {
-  //   case 'По возрастанию':
-  //     addToLS('sort', 'ascending');
-  //     break;
-  //   case 'По убыванию':
-  //     rmFromLS('sort', 'ascending');
-  //     addToLS('sort', 'descending');
-  //     break;
-  //   case 'По возрастанию (год)':
-  //     rmFromLS('sort', 'name');
-  //     addToLS('sort', 'ascending');
-  //     addToLS('sort', 'year');
-  //     break;
-  //   case 'По убыванию (год)':
-  //     rmFromLS('sort', 'name');
-  //     rmFromLS('sort', 'ascending');
-  //     addToLS('sort', 'year');
-  //     break;
-  //   case 'По возрастанию (название)':
-  //     rmFromLS('sort', 'year');
-  //     addToLS('sort', 'ascending');
-  //     addToLS('sort', 'name');
-  //     break;
-  //   case 'По убыванию (название)':
-  //     rmFromLS('sort', 'year');
-  //     rmFromLS('sort', 'ascending');
-  //     addToLS('sort', 'name');
-  //     break;
-  // }
 
 
   cardsContainer.innerHTML = '';
@@ -240,7 +170,7 @@ sortSelect.addEventListener('change', () => {
 });
 
 
-const favoriteSelectors: NodeListOf<HTMLInputElement> = main1.querySelectorAll('.radio__input');
+const favoriteSelectors: NodeListOf<HTMLInputElement> = toysMainHtmlElement.querySelectorAll('.radio__input');
 
 if (objFromLS.favorite.includes('нет')) {
   favoriteSelectors[0].checked = true;
@@ -257,32 +187,30 @@ favoriteSelectors[1].addEventListener('change', () => {
 });
 
 
-import createSlider from './slider';
+toysMainHtmlElement.addEventListener('DOMNodeInsertedIntoDocument', function insertScroll() {
 
-
-main1.addEventListener('DOMNodeInsertedIntoDocument', function insertScroll() {
-
-    const categoriesTitles = main1.querySelectorAll('.categories__title') as NodeListOf<HTMLElement>;
-    const countsSlider = createSlider('counts-slider', 'counts', 0, 12, () => {
+    const categoriesTitles = toysMainHtmlElement.querySelectorAll('.categories__title') as NodeListOf<HTMLElement>;
+    const countsSlider = createSlider(globalObject.countsSlider.className, globalObject.countsSlider.key, globalObject.countsSlider.min, globalObject.countsSlider.max, () => {
       cardsContainer.innerHTML = '';
       insertCards();
     }) as noUiSlider.Instance;
-    const yearsSlider = createSlider('years-slider', 'years', 1940, 2021, () => {
+    const yearsSlider = createSlider(globalObject.yearsSlider.className, globalObject.yearsSlider.key, globalObject.yearsSlider.min, globalObject.yearsSlider.max, () => {
       cardsContainer.innerHTML = '';
       insertCards();
     });
     categoriesTitles[1].after(countsSlider);
     categoriesTitles[2].after(yearsSlider);
 
-    main1.removeEventListener('DOMNodeInsertedIntoDocument', insertScroll);
+    toysMainHtmlElement.removeEventListener('DOMNodeInsertedIntoDocument', insertScroll);
 
   }
 );
 
-main1.addEventListener('DOMNodeInsertedIntoDocument', function updateLS() {
+toysMainHtmlElement.addEventListener('DOMNodeInsertedIntoDocument', function updateLS() {
   if (!localStorage.getItem('object')) {
     localStorage.setItem('object', JSON.stringify(globalObject));
   }
+  updVolSnowBtnStatus();
 });
 
 
@@ -291,83 +219,54 @@ function resetSliders() {
   const yearsSlider = document.querySelector('.years-slider') as noUiSlider.Instance;
 
   countsSlider.noUiSlider.updateOptions({
-    start: [0, 12]
+    start: [globalObject.countsSlider.min, globalObject.countsSlider.max]
   }, false);
   yearsSlider.noUiSlider.updateOptions({
-    start: [1940, 2021]
+    start: [globalObject.yearsSlider.min, globalObject.yearsSlider.max]
   }, false);
 }
 
 
 const shapesArray = ['колокольчик', 'шар', 'шишка', 'снежинка', 'фигурка'];
-const shapes: NodeListOf<HTMLElement> = main1.querySelectorAll('.shape__button');
+const shapes: NodeListOf<HTMLElement> = toysMainHtmlElement.querySelectorAll('.shape__button');
 addListener(shapes, globalObject.shapesArray, 'shape');
 
 
 const colorsArray = ['белый', 'желтый', 'красный', 'синий', 'зелёный'];
-const colors: NodeListOf<HTMLElement> = main1.querySelectorAll('.color__button');
-import { rmFromLS, addToLS } from '../../utilites/functions';
+const colors: NodeListOf<HTMLElement> = toysMainHtmlElement.querySelectorAll('.color__button');
 
 addListener(colors, globalObject.colorsArray, 'color');
 
 const sizesArray: string[] = ['большой', 'средний', 'малый'];
-const sizeChecks: NodeListOf<HTMLInputElement> = main1.querySelectorAll('.check__input');
+const sizeChecks: NodeListOf<HTMLInputElement> = toysMainHtmlElement.querySelectorAll('.check__input');
 for (let i = 0; i < sizeChecks.length; i++) {
   sizeChecks[i].checked = globalObject.size.includes(globalObject.sizesArray[i]);
 }
 addListener(sizeChecks, globalObject.sizesArray, 'size');
 
 
-const resetFilterButton = button('reset-button', 'Сбросить фильтры', () => {
+const resetFilterButton = createButton('reset-button', 'Сбросить фильтры', () => {
   resetFilters();
 });
-const resetSettingsButton = button('reset-button', 'Сбросить настройки', () => {
+const resetSettingsButton = createButton('reset-button', 'Сбросить настройки', () => {
   resetSettings();
   if (!String(localStorage.getItem('volume')).includes('mute')) {
-    volumeButton.classList.remove('mute_button');
+    volumeButton.classList.remove('button_mute');
   }
 });
-const resetButtons = main1.querySelector('.aside__buttons') as HTMLDivElement;
+const resetButtons = toysMainHtmlElement.querySelector('.aside__buttons') as HTMLDivElement;
 resetButtons.append(resetFilterButton);
 resetButtons.append(resetSettingsButton);
 
 
-import card from './cards/index';
-
-import Cards from './class/class';
-import { ICard, ILocalStorage } from '../../utilites/interfaces';
-
-
 const SortedCards = new Cards();
-// if (!localStorage.getItem('data')) {
-//
-//   localStorage.setItem('data', JSON.stringify(SortedCards.data));
-// }
 
-// SortedCards.data = globalObject.data;
+function insertCards(): void {
 
-function insertCards() {
-  // if (!localStorage.getItem('object')) {
   SortedCards.data = new Cards().data;
-  // }
-  // else {
-  // SortedCards.data = JSON.parse(localStorage.getItem('object')).data;
-  // SortedCards.data = globalObject.data;
-  // }
+
   globalObject.data = SortedCards.returnResultArray();
-  //   SortedCards.data.filter((element:ICard) => {
-  //   return Number(element.count) >= Number(objFromLS.counts[0]) &&
-  //     Number(element.count) <= Number(objFromLS.counts[1]) &&
-  //     Number(element.year) >= Number(objFromLS.years[0]) &&
-  //     Number(element.year) <= Number(objFromLS.years[1]) &&
-  //     objFromLS.shape.includes(element.shape) &&
-  //     objFromLS.color.includes(element.color) &&
-  //     objFromLS.size.includes(element.size) &&
-  //     objFromLS.favorite.includes(element.favorite) &&
-  //     (element.name.toUpperCase().includes(objFromLS.name.toUpperCase()) || objFromLS.name === '');
-  // })
-  // SortedCards.returnResultArray();
-  // console.log(SortedCards.data,globalObject.data, SortedCards.returnResultArray(),'%%');
+
   switch (true) {
     case objFromLS.sort.includes('year') :
       globalObject.data.sort((a: ICard, b: ICard) => compare(a, b, 'year'));
@@ -377,19 +276,20 @@ function insertCards() {
   }
   for (let i = 0; i < globalObject.data.length; i++) {
 
-    const newCard = card('prop', globalObject.data[i], () => {
-      let chosen = globalObject['chosen'] ? Number(globalObject.chosen) : 0;
+    const newCard = createCard('prop', globalObject.data[i], () => {
+      let chosenCardsCount = globalObject.chosen;
+      const maxCardsCount = 20;
       if (globalObject.data[i].chosen) {
         delete globalObject.data[i].chosen;
-        chosen--;
+        chosenCardsCount--;
       }
-      if (chosen >= 20) {
+      if (chosenCardsCount >= maxCardsCount) {
         alert('>20');
       } else {
-        chosen++;
+        chosenCardsCount++;
         globalObject.data[i].chosen = 'yes';
       }
-      globalObject.chosen = chosen;
+      globalObject.chosen = chosenCardsCount;
       localStorage.setItem('object', JSON.stringify(globalObject));
       cardsContainer.innerHTML = '';
       insertCards();
@@ -404,7 +304,7 @@ function insertCards() {
   localStorage.setItem('object', JSON.stringify(globalObject));
 }
 
-function compare(a: ICard, b: ICard, key: string) {
+function compare(a: ICard, b: ICard, key: string): 1 | 0 | -1 {
   if (a[key] > b[key]) {
     return 1;
   }
@@ -414,92 +314,16 @@ function compare(a: ICard, b: ICard, key: string) {
   return 0;
 }
 
-// function insertCards() {
-//   if (!localStorage.getItem('data')) {
-//     SortedCards.data = new Cards().data;
-//   }
-//   const cardsData = SortedCards.returnResultArray();
-//   console.log(cardsData);
-//   if (objFromLS.sort.includes('year')) {
-//     cardsData.sort((a, b) => {
-//       if (a.year > b.year) {
-//         return 1;
-//       }
-//       if (a.year < b.year) {
-//         return -1;
-//       }
-//       return 0;
-//     });
-//   }
-//   if (objFromLS.sort.includes('name')) {
-//     cardsData.sort((a, b) => {
-//       if (a.name > b.name) {
-//         return 1;
-//       }
-//       if (a.name < b.name) {
-//         return -1;
-//       }
-//       return 0;
-//     });
-//   }
-//
-//   for (let i = 0; i < cardsData.length; i++) {
-//
-//     const newCard = card('prop', cardsData[i], () => {
-//       let chosen = localStorage.getItem('chosen') ? Number(localStorage.getItem('chosen')) : 0;
-//       // if (cardsData[i].chosen) {
-//       //   delete cardsData[i].chosen;
-//       //   chosen--;
-//       // } else {
-//       //   if (chosen >= 20) {
-//       //     alert('>20');
-//       //   } else {
-//       //     chosen++;
-//       //     cardsData[i].chosen = 'yes';
-//       //   }
-//       // }
-//       localStorage.setItem('chosen', String(chosen));
-//
-//
-//       // const favorite = newCard.querySelector('.properties').lastElementChild as HTMLElement;
-//       // if (favorite.innerText === 'Любимая: да') {
-//       //   favorite.innerText = 'Любимая: нет';
-//       //   cardsData[i].favorite = 'нет';
-//       // } else {
-//       //   favorite.innerText = 'Любимая: да';
-//       //   cardsData[i].favorite = 'да';
-//       // }
-//       localStorage.setItem('data', JSON.stringify(SortedCards.data));
-//
-//       // newCard.classList.toggle('favorite_card');
-//       cardsContainer.innerHTML = '';
-//       insertCards();
-//
-//     });
-//     if (objFromLS.sort.includes('ascending')) {
-//       cardsContainer.append(newCard);
-//     } else {
-//       cardsContainer.prepend(newCard);
-//     }
-//   }
-// }
 
-function resetFilters() {
-  const chosen = localStorage.getItem('chosen');
-  const sort = localStorage.getItem('sort');
+function resetFilters(): void {
   localStorage.clear();
-  // firstLsSet();
-  // localStorage.setItem('sort', sort);
-  // localStorage.setItem('chosen', chosen);
   cardsContainer.innerHTML = '';
   insertCards();
   resetButtonsStatus();
 }
 
-function resetSettings() {
+function resetSettings(): void {
   localStorage.clear();
-  // firstLsSet();
-  localStorage.removeItem('volume');
   SortedCards.data = new Cards().data;
   cardsContainer.innerHTML = '';
   insertCards();
@@ -508,21 +332,12 @@ function resetSettings() {
 }
 
 
-function resetButtonsStatus() {
+function resetButtonsStatus(): void {
   if (String(localStorage.getItem('volume')).includes('mute')) {
-    volumeButton.classList.add('mute_button');
+    volumeButton.classList.add('button_mute');
   }
-  sortSelect.value = 'По возрастанию';
-  // if (localStorage.getItem('sort').split(' ').includes('ascending')) {
-  //   sortSelect.value = 'По возрастанию';
-  // } else {
-  //   sortSelect.value = 'По убыванию';
-  // }
-  // if (localStorage.getItem('favorite').split(' ').includes('нет')) {
-  //   favoriteSelectors[0].checked = true;
-  // } else {
-  //   favoriteSelectors[1].checked = true;
-  // }
+  sortSelect.value = globalObject.sortSelectValuesArray[0];
+
   for (let i = 0; i < sizeChecks.length; i++) {
     sizeChecks[i].checked = globalObject.size.includes(globalObject.sizesArray[i]);
   }
@@ -558,4 +373,4 @@ switch (globalObject.sort.join(' ')) {
 insertCards();
 
 export { SortedCards, resetSettings };
-export default main1;
+export default toysMainHtmlElement;
