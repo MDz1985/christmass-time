@@ -1,0 +1,81 @@
+@import "styles/styles-reset";
+/* Webfont: Steppe-Regular */
+@font-face {
+  font-family: 'Steppe';
+  src: url('assets/fonts/Steppe.woff2') format('woff2'),
+  url('assets/fonts/Steppe.woff') format('woff');
+  font-style: normal;
+  font-weight: normal;
+  text-rendering: optimizeLegibility;
+}
+
+.body {
+  font-family: 'Steppe', sans-serif;
+  width: 100vw;
+  height: 100vh;
+  color: #ffffff;
+  background: url("assets/bg.jpg") no-repeat top center;
+  background-size: cover;
+  overflow: hidden;
+
+  .selected_items {
+    border-color: #3fcc59;
+    color: #69db7e;
+    box-shadow: 0 0.5em 0.5em -0.4em #3fcc59;
+    transform: translateY(-0.25em);
+  }
+}
+
+.header {
+  width: 100vw;
+  height: 7vh;
+  background: $green;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 50px;
+
+  .header__button {
+    height: 40px;
+    min-width: 40px;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    text-transform: uppercase;
+  }
+
+  .tree_button {
+    background: url("./assets/svg/tree.svg") no-repeat center;
+    background-size: contain;
+  }
+}
+
+.footer {
+  width: 100vw;
+  height: 10vh;
+  background: $green;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  @media (max-width: 1150px) {
+    display: none;
+  }
+
+  .footer_git {
+    background: url("assets/svg/github.svg") no-repeat;
+    aspect-ratio: 50/50;
+  }
+
+  .footer_rss {
+    background: url("assets/svg/rss.svg") no-repeat;
+    aspect-ratio: 242/90;
+  }
+
+  .footer__a {
+    display: block;
+    height: 50%;
+    background-size: contain;
+  }
+}

@@ -1,0 +1,100 @@
+.garland {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10% 0;
+}
+
+.garland-line {
+  height: 10px;
+  display: flex;
+  justify-content: space-between;
+  transform: rotateZ(15deg);
+}
+
+.garland-line__bulb {
+  display: block;
+  height: 10px;
+  width: 10px;
+  //background: red;
+  border-radius: 50%;
+}
+
+.red_bulb {
+  animation: red 3s linear infinite;
+}
+
+.random_bulb {
+  animation: random 3s linear infinite;
+}
+
+.blueviolet_bulb {
+  animation: blueviole-t 3s linear infinite;
+}
+
+.yellow_bulb {
+  animation: yello-w 3s linear infinite;
+}
+
+.blue_bulb {
+  animation: blue 3s linear infinite;
+}
+
+@keyframes random {
+  0%, 100% {
+    background: #ff0000;
+  }
+  25% {
+    background: #8a2be2;
+  }
+  50% {
+    background: #ffff00;
+  }
+  75% {
+    background: #0000ff;
+  }
+}
+
+@keyframes red {
+  0%, 100% {
+    background: #ff0000;
+  }
+  50% {
+    background: #ffffff;
+    border: none;
+  }
+}
+
+@keyframes blue {
+  0%, 100% {
+    background: #0000ff;
+  }
+  50% {
+    background: #ffffff;
+    border: none;
+  }
+}
+
+@keyframes blueviole-t {
+  0%, 100% {
+    background: #8a2be2;
+  }
+  50% {
+    background: #ffffff;
+    border: none;
+  }
+}
+
+@keyframes yello-w {
+  0%, 100% {
+    background: #ffff00;
+  }
+  50% {
+    background: #ffffff;
+    border: none;
+  }
+}

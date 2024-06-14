@@ -1,0 +1,28 @@
+@import "nouislider";
+
+.slider{
+  margin: 10px 0;
+}
+
+.slider-text{
+  display: flex;
+  justify-content: space-between;
+}
+.noUi-target {
+  border: none;
+}
+.noUi-horizontal{
+  height: 3px;
+  .noUi-handle{
+    height: 16px;
+    width: 16px;
+    right: -8px;
+    top: -7px;
+    border-radius: 50%;
+    background: transparent;
+    &:before,
+    &:after{
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,83 @@
+.main {
+  height: 83vh;
+}
+
+.main_screen {
+  width: 100%;
+  display: flex;
+
+  .ball_first {
+    background: url("../../../src/assets/ball/1.png") no-repeat;
+    width: 22%;
+    left: 22vw;
+    top: 25vh;
+  }
+
+  .ball_second {
+    background: url("../../../src/assets/ball/2.png") no-repeat;
+    width: 13%;
+    right: 28vw;
+    top: 25vh;
+  }
+
+  .ball {
+    position: absolute;
+    aspect-ratio: 800/997;
+    background-size: cover;
+
+    &::after {
+      position: absolute;
+      transform: rotate(
+                      90deg);
+      content: "";
+      top: -27%;
+      left: 16%;
+      height: 6px;
+      width: 69%;
+      background-color: #cdbea2;
+    }
+  }
+
+}
+
+.center {
+  position: relative;
+  margin: auto auto 13vh;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 593px;
+  height: 416px;
+
+  .center__title {
+    padding: 66px 85px;
+    background: $hTransparent;
+    backdrop-filter: blur(31px);
+    border-radius: 30px;
+    font-family: Neucha, sans-serif;
+    font-weight: normal;
+    font-size: 53px;
+    line-height: 58px;
+    font-style: normal;
+    height: fit-content;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .center__button {
+    padding: 12px 119px;
+    font-family: Steppe, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 29px;
+    /* identical to box height */
+    text-align: center;
+    text-transform: capitalize;
+    color: #ffffff;
+
+  }
+}
+
+
+
