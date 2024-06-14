@@ -5,9 +5,9 @@
   "main": "webpack.config.js",
   "types": "main.d.ts",
   "scripts": {
-    "build": "webpack --config ./webpack.config.js --env mode=prod",
-    "lint": "eslint . --ext .ts",
-    "start": "node_modules/.bin/webpack-dev-server"
+    "build": "christmas-task/node_modules/.bin/webpack --config ./webpack.config.js --env mode=prod",
+    "lint": "christmas-task/node_modules/.bin/eslint . --ext .ts",
+    "start": "christmas-task/node_modules/.bin/webpack-dev-server"
   },
   "author": "m_d",
   "license": "ISC",
