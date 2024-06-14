@@ -1,4 +1,4 @@
-import 'src/index.scss';
+import './index.scss';
 import mainCover from './components/main-cover/index';
 import toysMainHtmlElement from './components/main-1';
 import main2 from './components/main-2';
